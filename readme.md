@@ -1,4 +1,4 @@
-# Backtracking Sudoku Solver
+# Backtracking Sudoku Solver and Generator
 ### *with GUI*
 
 [Work in progress]
