@@ -1,6 +1,7 @@
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import java.awt.Color;
@@ -37,6 +38,15 @@ class UI extends JFrame implements ActionListener {
 
     UI() {
         
+        JLabel c00 = new JLabel("(0,0)");
+        c00.setBounds(20,20, 30, 30);
+        JLabel c01 = new JLabel("(8,0)");
+        c01.setBounds(500,20, 30, 30);
+        JLabel c10 = new JLabel("(0,8)");
+        c10.setBounds(20,500, 30, 30);
+        JLabel c11 = new JLabel("(8,8)");
+        c11.setBounds(500,500, 30, 30);
+
         button11 = new GameButton() ; button11.setBounds(50, 50, 50, 50); button11.setBackground(Color.WHITE); button11.addActionListener( this ); button11.buttonID = "11" ;
         button12 = new GameButton() ; button12.setBounds(50, 100, 50, 50); button12.setBackground(Color.WHITE); button12.addActionListener( this ); button12.buttonID = "12" ;
         button13 = new GameButton() ; button13.setBounds(50, 150, 50, 50); button13.setBackground(Color.WHITE); button13.addActionListener( this ); button13.buttonID = "13" ;
@@ -143,7 +153,11 @@ class UI extends JFrame implements ActionListener {
         this.setResizable(false);
         
         JTextField textField = new JTextField(  ) ;        
-        textField.setBounds(220,550, 200,30);  
+        textField.setBounds(240,550, 160,30);  
+        
+        JTextField gameLog = new JTextField(  ) ;        
+        textField.setBounds(240,550, 160,30);  
+
         GameButton buttonIN = new GameButton() ; buttonIN.setBounds(110, 550, 80, 30); buttonIN.setBackground(Color.WHITE); buttonIN.addActionListener( this ); buttonIN.buttonID = "IN" ;
         GameButton buttonSL = new GameButton() ; buttonSL.setBounds(110, 600, 80, 30); buttonSL.setBackground(Color.WHITE); buttonSL.addActionListener( this ); buttonSL.buttonID = "SLV" ;
         GameButton buttonGN = new GameButton() ; buttonGN.setBounds(240, 600, 160, 30); buttonGN.setBackground(Color.WHITE); buttonGN.addActionListener( this ); buttonGN.buttonID = "GEN" ;
@@ -151,7 +165,7 @@ class UI extends JFrame implements ActionListener {
         GameButton buttonRS = new GameButton() ; buttonRS.setBounds(110, 650, 80, 30); buttonRS.setBackground(Color.WHITE); buttonRS.addActionListener( this ); buttonRS.buttonID = "RES" ;
         GameButton buttonEX = new GameButton() ; buttonEX.setBounds(240, 650, 160, 30); buttonEX.setBackground(Color.WHITE); buttonEX.addActionListener( this ); buttonEX.buttonID = "EXIT" ;
 
-    
+        this.setTitle("Sudoku Sudoku Sudoku Sudoku !");
         this.setSize(570,800);
         this.setVisible(true);
         
@@ -161,6 +175,8 @@ class UI extends JFrame implements ActionListener {
         buttonRS.setText("Reset");
         buttonEX.setText("Give up");
 
+        this.add(c00) ;this.add(c01) ;this.add(c10) ;this.add(c11) ;
+        
         this.add( buttonIN ) ;this.add( buttonGN ) ;this.add( buttonSL ) ;this.add( buttonRS ) ;this.add( buttonEX ) ;
         this.add( button11 ) ;this.add( button12 ) ;this.add( button13 ) ;this.add( button14 ) ;this.add( button15 ) ;this.add( button16 ) ;this.add( button17 ) ;this.add( button18 ) ;this.add( button19 ) ;
         this.add( button21 ) ;this.add( button22 ) ;this.add( button23 ) ;this.add( button24 ) ;this.add( button25 ) ;this.add( button26 ) ;this.add( button27 ) ;this.add( button28 ) ;this.add( button29 ) ;
@@ -196,6 +212,11 @@ class UI extends JFrame implements ActionListener {
         }
 
         return null ;
+    }
+
+    void Update() {
+
+
     }
 
     int GetButtonValue( String tag ) {
