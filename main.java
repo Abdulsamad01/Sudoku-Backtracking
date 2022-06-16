@@ -152,11 +152,14 @@ class UI extends JFrame implements ActionListener {
         this.setLayout(null);
         this.setResizable(false);
         
-        JTextField textField = new JTextField(  ) ;        
+        JTextField textField = new JTextField() ;        
         textField.setBounds(240,550, 160,30);  
         
-        JTextField gameLog = new JTextField(  ) ;        
-        textField.setBounds(240,550, 160,30);  
+        JTextField gameLog = new JTextField() ;        
+        gameLog.setBounds(110,720, 292,40);  
+
+        JLabel out_label = new JLabel("Game Log");
+        out_label.setBounds(220,690, 280,40);
 
         GameButton buttonIN = new GameButton() ; buttonIN.setBounds(110, 550, 80, 30); buttonIN.setBackground(Color.WHITE); buttonIN.addActionListener( this ); buttonIN.buttonID = "IN" ;
         GameButton buttonSL = new GameButton() ; buttonSL.setBounds(110, 600, 80, 30); buttonSL.setBackground(Color.WHITE); buttonSL.addActionListener( this ); buttonSL.buttonID = "SLV" ;
@@ -166,7 +169,7 @@ class UI extends JFrame implements ActionListener {
         GameButton buttonEX = new GameButton() ; buttonEX.setBounds(240, 650, 160, 30); buttonEX.setBackground(Color.WHITE); buttonEX.addActionListener( this ); buttonEX.buttonID = "EXIT" ;
 
         this.setTitle("Sudoku Sudoku Sudoku Sudoku !");
-        this.setSize(570,800);
+        this.setSize(570,850);
         this.setVisible(true);
         
         buttonIN.setText("Input");
@@ -188,7 +191,9 @@ class UI extends JFrame implements ActionListener {
         this.add( button81 ) ;this.add( button82 ) ;this.add( button83 ) ;this.add( button84 ) ;this.add( button85 ) ;this.add( button86 ) ;this.add( button87 ) ;this.add( button88 ) ;this.add( button89 ) ;
         this.add( button91 ) ;this.add( button92 ) ;this.add( button93 ) ;this.add( button94 ) ;this.add( button95 ) ;this.add( button96 ) ;this.add( button97 ) ;this.add( button98 ) ;this.add( button99 ) ;
         
+        this.add(out_label) ;
         this.add( textField ) ;
+        this.add( gameLog ) ;
     }
 
     public void actionPerformed( ActionEvent event ) {
