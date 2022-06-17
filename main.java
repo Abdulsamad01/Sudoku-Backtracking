@@ -298,7 +298,7 @@ class UI extends JFrame implements ActionListener {
 
             case "Cutie" :
                 
-                this.getContentPane().setBackground( new Color( 0xff6bbf ) );
+                this.getContentPane().setBackground( "./Assets/Themes/Cutie_00000.jpg" );
                 break;
 
             case "Vector" :
