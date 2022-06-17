@@ -1,5 +1,7 @@
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -43,7 +45,14 @@ class UI extends JFrame implements ActionListener {
 
     JTextField gameLog, textField ;
 
+    JComboBox comboBox ;
+
+    String themes[] = { "Charcoal", "Nuke", "Ocean", "Cutie", "Vector", "Lemon" } ;
+
     UI() {
+
+        ImageIcon ico = new ImageIcon( "./Assets/icons8-pastime-64.png" ) ;
+        this.setIconImage( ico.getImage() );
 
         for( int[] row : sudo_array )
         {
@@ -66,6 +75,13 @@ class UI extends JFrame implements ActionListener {
         c10.setBounds(20,500, 30, 30);
         JLabel c11 = new JLabel("(8,8)");
         c11.setBounds(500,500, 30, 30);
+
+        JLabel theme = new JLabel("Theme :");
+        theme.setBounds(10,0, 50, 30);
+
+        comboBox = new JComboBox<>( themes ) ;
+        comboBox.setBounds(70,5 , 100, 20);
+        comboBox.addActionListener(this);
 
         button11 = new GameButton() ; button11.setBounds(50, 50, 50, 50); button11.setBackground(Color.WHITE); button11.addActionListener( this ); button11.buttonID = "11" ;
         button12 = new GameButton() ; button12.setBounds(50, 100, 50, 50); button12.setBackground(Color.WHITE); button12.addActionListener( this ); button12.buttonID = "12" ;
@@ -198,7 +214,7 @@ class UI extends JFrame implements ActionListener {
         buttonRS.setText("Reset");
         buttonEX.setText("Give up");
 
-        this.add(c00) ;this.add(c01) ;this.add(c10) ;this.add(c11) ;
+        this.add(c00) ;this.add(c01) ;this.add(c10) ;this.add(c11) ;this.add( theme ) ;
         
         this.add( buttonIN ) ;this.add( buttonGN ) ;this.add( buttonSL ) ;this.add( buttonRS ) ;this.add( buttonEX ) ;
         this.add( button11 ) ;this.add( button12 ) ;this.add( button13 ) ;this.add( button14 ) ;this.add( button15 ) ;this.add( button16 ) ;this.add( button17 ) ;this.add( button18 ) ;this.add( button19 ) ;
@@ -211,13 +227,24 @@ class UI extends JFrame implements ActionListener {
         this.add( button81 ) ;this.add( button82 ) ;this.add( button83 ) ;this.add( button84 ) ;this.add( button85 ) ;this.add( button86 ) ;this.add( button87 ) ;this.add( button88 ) ;this.add( button89 ) ;
         this.add( button91 ) ;this.add( button92 ) ;this.add( button93 ) ;this.add( button94 ) ;this.add( button95 ) ;this.add( button96 ) ;this.add( button97 ) ;this.add( button98 ) ;this.add( button99 ) ;
         
-        this.add(out_label) ;
+        SetTheme( themes[comboBox.getSelectedIndex()] );
+
+        this.add( comboBox ) ;
+        this.add( out_label ) ;
         this.add( textField ) ;
         this.add( gameLog ) ;
     }
 
     public void actionPerformed( ActionEvent event ) {
 
+        if( event.getSource() == comboBox ) {   
+            //System.out.println("event fired");
+            SetTheme( themes[comboBox.getSelectedIndex()] );
+            SetCurrentLog( "change theme to \"" + themes[comboBox.getSelectedIndex()] + "\"" );
+
+            return ;
+        } 
+        
         GameButton event_source = (GameButton) event.getSource() ;
 
         // System.out.println( event_source.buttonID );
@@ -248,6 +275,44 @@ class UI extends JFrame implements ActionListener {
 
                 SetCurrentLog( "Parsing error" );
             }
+        }
+    }
+
+    void SetTheme( String theme ) {
+
+        switch (theme) {
+            case "Charcoal" :
+                
+                this.getContentPane().setBackground( new Color( 0x424242 ) );
+                break;
+            
+            case "Nuke" :
+                
+                this.getContentPane().setBackground( new Color( 0xffffff ) );
+                break;
+            
+            case "Ocean" :
+                
+                this.getContentPane().setBackground( new Color( 0x21cbff ) );
+                break;
+
+            case "Cutie" :
+                
+                this.getContentPane().setBackground( new Color( 0xff6bbf ) );
+                break;
+
+            case "Vector" :
+                
+                this.getContentPane().setBackground( new Color( 0xff7452 ) );
+                break;
+
+            case "Lemon" :
+                
+                this.getContentPane().setBackground( new Color( 0xd7ff52 ) );
+                break;
+
+            default:
+                break;
         }
     }
 
