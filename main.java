@@ -6,7 +6,8 @@ import javax.swing.JTextField;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener; 
+import java.awt.event.ActionListener;
+import java.util.Arrays; 
 
 
 public class main {
@@ -24,7 +25,11 @@ class GameButton extends JButton {
 }
 
 class UI extends JFrame implements ActionListener {
-    
+
+    int sudo_array[][] = new int[9][9] ;
+
+    GameButton currentSelectedButton ;
+
     GameButton buttons[] ;
     GameButton button11 ,button12 ,button13 ,button14 ,button15 ,button16 ,button17 ,button18 ,button19 ;
     GameButton button21 ,button22 ,button23 ,button24 ,button25 ,button26 ,button27 ,button28 ,button29 ;
@@ -36,7 +41,22 @@ class UI extends JFrame implements ActionListener {
     GameButton button81 ,button82 ,button83 ,button84 ,button85 ,button86 ,button87 ,button88 ,button89 ;
     GameButton button91 ,button92 ,button93 ,button94 ,button95 ,button96 ,button97 ,button98 ,button99 ;
 
+    JTextField gameLog, textField ;
+
     UI() {
+
+        for( int[] row : sudo_array )
+        {
+            for( int i = 0 ; i < row.length - 1 ; i ++ ) {
+
+                row[i] = 0 ;
+            }
+        }
+
+        for (int[] row : sudo_array) {
+            
+            System.out.println( Arrays.toString( row ) );
+        }
         
         JLabel c00 = new JLabel("(0,0)");
         c00.setBounds(20,20, 30, 30);
@@ -152,10 +172,10 @@ class UI extends JFrame implements ActionListener {
         this.setLayout(null);
         this.setResizable(false);
         
-        JTextField textField = new JTextField() ;        
+        textField = new JTextField() ;        
         textField.setBounds(240,550, 160,30);  
         
-        JTextField gameLog = new JTextField() ;        
+        gameLog = new JTextField() ;        
         gameLog.setBounds(110,720, 292,40);  
 
         JLabel out_label = new JLabel("Game Log");
@@ -200,7 +220,45 @@ class UI extends JFrame implements ActionListener {
 
         GameButton event_source = (GameButton) event.getSource() ;
 
-        System.out.println( event_source.buttonID );
+        // System.out.println( event_source.buttonID );
+
+        if( currentSelectedButton.buttonID == GetCurrentLog().split(" ")[1] 
+        && event_source.buttonID == currentSelectedButton.buttonID ) {
+
+            currentSelectedButton = null ;
+            SetCurrentLog( "deselect " + event_source.buttonID ) ;
+        }
+        
+        if ( currentSelectedButton.buttonID != event_source.buttonID ) 
+        {
+            currentSelectedButton = event_source ;
+            SetCurrentLog( "select " + event_source.buttonID );
+        }
+
+        if ( event_source.buttonID == "IN" ) {
+
+            String input = textField.getText() ;
+            int number ;
+
+            try {
+
+                number =  Integer.parseInt( input.strip() ) ;
+            }
+            catch( Exception err ) {
+
+                SetCurrentLog( "Parsing error" );
+            }
+        }
+    }
+
+    String GetCurrentLog( ) { 
+
+        return gameLog.getText() ;
+    }
+
+    void SetCurrentLog( String log ) { 
+        
+        gameLog.setText( log ); 
     }
 
     GameButton GetGameButtonWithTag ( String tag  ) {
@@ -217,6 +275,12 @@ class UI extends JFrame implements ActionListener {
         }
 
         return null ;
+    }
+
+    void SetLog( String update ) {
+
+        gameLog.setText( null );
+        gameLog.setText( update );
     }
 
     void Update() {
