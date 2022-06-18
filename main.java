@@ -51,16 +51,51 @@ class UI extends JFrame implements ActionListener {
 
     UI() {
 
+        /*
+        sudo_array = new int[][] {
+            { 3, 0, 6, 5, 0, 8, 4, 0, 0 },
+            { 5, 2, 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 8, 7, 0, 0, 0, 0, 3, 1 },
+            { 0, 0, 3, 0, 1, 0, 0, 8, 0 },
+            { 9, 0, 0, 8, 6, 3, 0, 0, 5 },
+            { 0, 5, 0, 0, 9, 0, 6, 0, 0 },
+            { 1, 3, 0, 0, 0, 0, 2, 5, 0 },
+            { 0, 0, 0, 0, 0, 0, 0, 7, 4 },
+            { 0, 0, 5, 2, 0, 6, 3, 0, 0 }
+        };
+        */
+
+        for (int[] row : sudo_array) {
+            
+            System.out.println( Arrays.toString(row) );
+        }
+        System.out.println( Arrays.toString(sudo_array) );
+
+        int N = sudo_array.length;
+ 
+        if (SolveSudoku(sudo_array, N))
+        {
+            // print solution
+            System.out.println( Arrays.toString(sudo_array) );
+        }
+        else {
+            System.out.println("No solution");
+        }
+
+        SolveSudoku(sudo_array, N) ;
+
         ImageIcon ico = new ImageIcon( "./Assets/icons8-pastime-64.png" ) ;
         this.setIconImage( ico.getImage() );
 
+        /*
         for( int[] row : sudo_array )
         {
-            for( int i = 0 ; i < row.length - 1 ; i ++ ) {
+            for( int i = 0 ; i < row.length ; i ++ ) {
 
                 row[i] = 0 ;
             }
         }
+        */
 
         for (int[] row : sudo_array) {
             
@@ -297,7 +332,7 @@ class UI extends JFrame implements ActionListener {
                 break;
 
             case "Cutie" :
-                
+    
                 this.getContentPane().setBackground( new Color( 0xff6bbf ) );
                 break;
 
@@ -360,171 +395,109 @@ class UI extends JFrame implements ActionListener {
 
     void SetButtonValue( String tag, int value ) {
 
-        GetGameButtonWithTag( tag ).value = value ;
+        try {
+
+            GetGameButtonWithTag( tag ).value = value ;
+
+            String valStr ;
+
+            if( value != 0 ) { valStr = Integer.toString( value ) ; } 
+            else { valStr = "  " ; }
+
+            GetGameButtonWithTag( tag ).setText( valStr );
+            SetCurrentLog( "Edited button " + tag + " " + valStr );
+        }
+
+        catch( Exception err ) {
+
+            SetCurrentLog( err.getMessage() );
+        }
+    }
+
+    public static boolean isSafe(int[][] board,
+                                 int row, int col,
+                                 int num)
+    {
+
+        for (int d = 0; d < board.length; d++) {
+             
+            if (board[row][d] == num) {
+
+                return false;
+            }
+        }
+ 
+        for (int r = 0; r < board.length; r++) {
+             
+            if (board[r][col] == num) {
+
+                return false;
+            }
+        }
+ 
+        int sqrt = (int)Math.sqrt(board.length);
+        int boxRowStart = row - row % sqrt;
+        int boxColStart = col - col % sqrt;
+ 
+        for (int r = boxRowStart; r < boxRowStart + sqrt; r++) {
+
+            for (int d = boxColStart; d < boxColStart + sqrt; d++) {
+
+                if (board[r][d] == num) { return false; }
+            }
+        }
+ 
+        return true;
     }
 
     // CODE HERE ! CODE HERE ! CODE HERE ! CODE HERE ! CODE HERE ! 
-    void SolveSudoku( ) {
+    boolean SolveSudoku( int[][] sudo_board, int n ) {
      
-    /* A Backtracking program in
-Java to solve Sudoku problem */
-class GFG
-{
-	public static boolean isSafe(int[][] sudo_array,
-								int row, int col,
-								int num)
-	{
-		// Row has the unique (row-clash)
-		for (int d = 0; d < sudo_array.length; d++)
-		{
-			
-			// Check if the number we are trying to
-			// place is already present in
-			// that row, return false;
-			if (sudo_array[row][d] == num) {
-				return false;
-			}
-		}
+        int row = -1;
+        int col = -1;
+        boolean isEmpty = true;
+        for (int i = 0; i < n; i++) {
 
-		// Column has the unique numbers (column-clash)
-		for (int r = 0; r < sudo_array.length; r++)
-		{
-			
-			// Check if the number
-			// we are trying to
-			// place is already present in
-			// that column, return false;
-			if (sudo_array[r][col] == num)
-			{
-				return false;
-			}
-		}
+            for (int j = 0; j < n; j++) {
 
-		// Corresponding square has
-		// unique number (box-clash)
-		int sqrt = (int)Math.sqrt(sudo_array.length);
-		int boxRowStart = row - row % sqrt;
-		int boxColStart = col - col % sqrt;
+                if (sudo_board[i][j] == 0) {
 
-		for (int r = boxRowStart;
-			r < boxRowStart + sqrt; r++)
-		{
-			for (int d = boxColStart;
-				d < boxColStart + sqrt; d++)
-			{
-				if (sudo_array[r][d] == num)
-				{
-					return false;
-				}
-			}
-		}
+                    row = i;
+                    col = j;
+ 
+                    isEmpty = false;
+                    break;
+                }
+            }
 
-		// if there is no clash, it's safe
-		return true;
-	}
+            if (!isEmpty) {
+            
+                break;
+            }
+        }
+ 
+        if (isEmpty) {
 
-	public static boolean solveSudoku(
-		int[][] sudo_array, int n)
-	{
-		int row = -1;
-		int col = -1;
-		boolean isEmpty = true;
-		for (int i = 0; i < n; i++)
-		{
-			for (int j = 0; j < n; j++)
-			{
-				if (board[i][j] == 0)
-				{
-					row = i;
-					col = j;
+            return true;
+        }
 
-					// We still have some remaining
-					// missing values in Sudoku
-					isEmpty = false;
-					break;
-				}
-			}
-			if (!isEmpty) {
-				break;
-			}
-		}
+        for (int num = 1; num <= n; num++) {
 
-		// No empty space left
-		if (isEmpty)
-		{
-			return true;
-		}
+            if (isSafe(sudo_board, row, col, num)) {
 
-		// Else for each-row backtrack
-		for (int num = 1; num <= n; num++)
-		{
-			if (isSafe(sudo_array, row, col, num))
-			{
-				sudo_array[row][col] = num;
-				if (solveSudoku(sudo_array, n))
-				{
-					// print(board, n);
-					return true;
-				}
-				else
-				{
-					// replace it
-					sudo_array[row][col] = 0;
-				}
-			}
-		}
-		return false;
-	}
+                sudo_board[row][col] = num;
 
-	public static void print(
-		int[][] sudo_array, int N)
-	{
-		
-		// We got the answer, just print it
-		for (int r = 0; r < N; r++)
-		{
-			for (int d = 0; d < N; d++)
-			{
-				System.out.print(sudo_array[r][d]);
-				System.out.print(" ");
-			}
-			System.out.print("\n");
+                if (SolveSudoku(sudo_board, n)) {
 
-			if ((r + 1) % (int)Math.sqrt(N) == 0)
-			{
-				System.out.print("");
-			}
-		}
-	}
-
-	// Driver Code
-	public static void main(String args[])
-	{
-
-		int[][] sudo_array = new int[][] {
-			{ 3, 0, 6, 5, 0, 8, 4, 0, 0 },
-			{ 5, 2, 0, 0, 0, 0, 0, 0, 0 },
-			{ 0, 8, 7, 0, 0, 0, 0, 3, 1 },
-			{ 0, 0, 3, 0, 1, 0, 0, 8, 0 },
-			{ 9, 0, 0, 8, 6, 3, 0, 0, 5 },
-			{ 0, 5, 0, 0, 9, 0, 6, 0, 0 },
-			{ 1, 3, 0, 0, 0, 0, 2, 5, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 7, 4 },
-			{ 0, 0, 5, 2, 0, 6, 3, 0, 0 }
-		};
-		int N = board.length;
-
-		if (solveSudoku(board, N))
-		{
-			// print solution
-			print(board, N);
-		}
-		else {
-			System.out.println("No solution");
-		}
-	}
-}    
-    
+                    return true;
+                }
+                else {
+                    
+                    sudo_board[row][col] = 0;
+                }
+            }
+        }
+        return false;
     }
     
     // DO I WANT THIS ACTUALLY ? HMMMMM
