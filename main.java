@@ -1,4 +1,5 @@
 
+import javax.print.DocFlavor.STRING;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -9,7 +10,8 @@ import javax.swing.JTextField;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays; 
+import java.util.Arrays;
+import java.util.FormatFlagsConversionMismatchException; 
 
 
 public class main {
@@ -27,6 +29,8 @@ class GameButton extends JButton {
 }
 
 class UI extends JFrame implements ActionListener {
+
+    // region INTIALIZING CONSTANTS
 
     int sudo_array[][] = new int[9][9] ;
 
@@ -49,6 +53,8 @@ class UI extends JFrame implements ActionListener {
 
     String themes[] = { "Charcoal", "Nuke", "Ocean", "Cutie", "Vector", "Lemon" } ;
 
+    // endregion
+
     UI() {
 
         /*
@@ -69,14 +75,16 @@ class UI extends JFrame implements ActionListener {
             
             System.out.println( Arrays.toString(row) );
         }
-        System.out.println( Arrays.toString(sudo_array) );
 
         int N = sudo_array.length;
  
         if (SolveSudoku(sudo_array, N))
         {
             // print solution
-            System.out.println( Arrays.toString(sudo_array) );
+            for (int[] row : sudo_array) {
+
+                System.out.println( Arrays.toString( row ) );
+            }
         }
         else {
             System.out.println("No solution");
@@ -97,10 +105,7 @@ class UI extends JFrame implements ActionListener {
         }
         */
 
-        for (int[] row : sudo_array) {
-            
-            System.out.println( Arrays.toString( row ) );
-        }
+        
         
         JLabel c00 = new JLabel("(0,0)");
         c00.setBounds(20,20, 30, 30);
@@ -117,6 +122,8 @@ class UI extends JFrame implements ActionListener {
         comboBox = new JComboBox<>( themes ) ;
         comboBox.setBounds(70,5 , 100, 20);
         comboBox.addActionListener(this);
+
+        // region INIT BUTTONS
 
         button11 = new GameButton() ; button11.setBounds(50, 50, 50, 50); button11.setBackground(Color.WHITE); button11.addActionListener( this ); button11.buttonID = "11" ;
         button12 = new GameButton() ; button12.setBounds(50, 100, 50, 50); button12.setBackground(Color.WHITE); button12.addActionListener( this ); button12.buttonID = "12" ;
@@ -219,6 +226,8 @@ class UI extends JFrame implements ActionListener {
             button81 ,button82 ,button83 ,button84 ,button85 ,button86 ,button87 ,button88 ,button89 ,
             button91 ,button92 ,button93 ,button94 ,button95 ,button96 ,button97 ,button98 ,button99 } ;
 
+        // endregion
+        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
         this.setResizable(false);
@@ -251,6 +260,8 @@ class UI extends JFrame implements ActionListener {
         buttonGN.setText("Generate");
         buttonRS.setText("Reset");
         buttonEX.setText("Give up");
+            
+        // region ADD ELEMENTS
 
         this.add(c00) ;this.add(c01) ;this.add(c10) ;this.add(c11) ;this.add( theme ) ;
         
@@ -271,6 +282,8 @@ class UI extends JFrame implements ActionListener {
         this.add( out_label ) ;
         this.add( textField ) ;
         this.add( gameLog ) ;
+
+        // endregion
     }
 
     public void actionPerformed( ActionEvent event ) {
@@ -279,33 +292,13 @@ class UI extends JFrame implements ActionListener {
             //System.out.println("event fired");
             SetTheme( themes[comboBox.getSelectedIndex()] );
             SetCurrentLog( "change theme to \"" + themes[comboBox.getSelectedIndex()] + "\"" );
-
+            
             return ;
         } 
 
         GameButton event_source ;
         try { event_source = (GameButton) event.getSource() ; }
         catch( Exception err ) { return ; }
-
-        // System.out.println( event_source.buttonID );
-
-        if ( currentSelectedButton != event_source ) 
-        {
-            currentSelectedButton = event_source ;
-            SetCurrentLog( "select " + event_source.buttonID );
-        }
-
-        else if ( GetCurrentLog().split(" ")[0] == "select"
-        || GetCurrentLog().split(" ")[0] == "deselect" ) {
-            
-            if( currentSelectedButton.buttonID == GetCurrentLog().split(" ")[1] 
-            && event_source.buttonID == currentSelectedButton.buttonID ) {
-
-                currentSelectedButton = null ;
-                SetCurrentLog( "deselect " + event_source.buttonID ) ;
-            }
-        }
-    
 
         if ( event_source.buttonID == "IN" ) {
 
@@ -315,12 +308,44 @@ class UI extends JFrame implements ActionListener {
             try {
 
                 number =  Integer.parseInt( input.strip() ) ;
+
+                currentSelectedButton.setText( input );
             }
+
             catch( Exception err ) {
 
                 SetCurrentLog( "Parsing error" );
             }
         }
+
+        // System.out.println( event_source.buttonID );
+
+        try {
+
+            if ( currentSelectedButton != event_source ) {
+
+                int coord ;
+
+                coord = Integer.parseInt( event_source.buttonID ) ; 
+                
+                currentSelectedButton = event_source ;
+                SetCurrentLog( "select " + currentSelectedButton.buttonID );
+            }
+
+            else if ( GetCurrentLog().split(" ")[0] == "select" ) {
+            
+                if( currentSelectedButton.buttonID == GetCurrentLog().split(" ")[1] 
+                && event_source.buttonID == currentSelectedButton.buttonID ) {
+    
+                    currentSelectedButton = null ;
+                    SetCurrentLog( "deselect " + event_source.buttonID ) ;
+                }
+            }
+
+            Update(); 
+        }
+
+        catch( Exception err ) {  } 
     }
 
     void SetTheme( String theme ) {
@@ -395,7 +420,11 @@ class UI extends JFrame implements ActionListener {
 
     void Update() {
 
+        for (GameButton gameButton : buttons) {
 
+            System.out.println( gameButton.buttonID );
+            
+        }
     }
 
     int GetButtonValue( String tag ) {
@@ -517,6 +546,11 @@ class UI extends JFrame implements ActionListener {
     }
 
     void GenerateSudoku() {
+
+
+    }
+
+    void SetButtonNumber() {
 
 
     }
