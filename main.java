@@ -229,6 +229,9 @@ class UI extends JFrame implements ActionListener {
         gameLog = new JTextField() ;        
         gameLog.setBounds(110,720, 292,40);  
 
+        SetCurrentLog( " " );
+        currentSelectedButton = null ;
+
         JLabel out_label = new JLabel("Game Log");
         out_label.setBounds(220,690, 280,40);
 
@@ -279,23 +282,30 @@ class UI extends JFrame implements ActionListener {
 
             return ;
         } 
-        
-        GameButton event_source = (GameButton) event.getSource() ;
+
+        GameButton event_source ;
+        try { event_source = (GameButton) event.getSource() ; }
+        catch( Exception err ) { return ; }
 
         // System.out.println( event_source.buttonID );
 
-        if( currentSelectedButton.buttonID == GetCurrentLog().split(" ")[1] 
-        && event_source.buttonID == currentSelectedButton.buttonID ) {
-
-            currentSelectedButton = null ;
-            SetCurrentLog( "deselect " + event_source.buttonID ) ;
-        }
-        
-        if ( currentSelectedButton.buttonID != event_source.buttonID ) 
+        if ( currentSelectedButton != event_source ) 
         {
             currentSelectedButton = event_source ;
             SetCurrentLog( "select " + event_source.buttonID );
         }
+
+        else if ( GetCurrentLog().split(" ")[0] == "select"
+        || GetCurrentLog().split(" ")[0] == "deselect" ) {
+            
+            if( currentSelectedButton.buttonID == GetCurrentLog().split(" ")[1] 
+            && event_source.buttonID == currentSelectedButton.buttonID ) {
+
+                currentSelectedButton = null ;
+                SetCurrentLog( "deselect " + event_source.buttonID ) ;
+            }
+        }
+    
 
         if ( event_source.buttonID == "IN" ) {
 
