@@ -12,6 +12,8 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.text.html.HTML.Tag;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -325,8 +327,6 @@ class UI extends JFrame implements ActionListener {
 
                 SetButtonValue(currentSelectedButton.buttonID , number );
 
-                Update();
-
                 return ;
             }
 
@@ -375,8 +375,6 @@ class UI extends JFrame implements ActionListener {
                     SetCurrentLog( "deselect " + event_source.buttonID ) ;
                 }
             }
-
-            Update(); 
         }
 
         catch( Exception err ) { SetCurrentLog( "Sync Error" ); } 
@@ -455,23 +453,6 @@ class UI extends JFrame implements ActionListener {
     }
 
     // UPDATE METHOD SYNCS BETWEEN GUI AND MAIN ARRAY sudo_array 
-    void Update() {
-
-        for (GameButton gameButton : buttons) {
-            
-            double id = (double) Integer.parseInt( gameButton.buttonID ) ;
-            int x , y ;
-
-            x = (int) ( ( ( ( id / 10 ) - Math.floor ( id / 10 ) ) * 10 ) - 1 )  ;
-            // 41             4.1           4         4.1       
-
-            y = (int)( (Math.floor( id / 10 )) ) - 1 ;
-
-            sudo_array[x][y] = gameButton.value ;
-        }
-
-        DisplayBoard();
-    }
 
     // GET BUTTON VALUE RETURNS THE VALUE OF A BUTTON WITH A SPECIFIC UNIQUE ID 
     int GetButtonValue( String tag ) {
@@ -501,6 +482,16 @@ class UI extends JFrame implements ActionListener {
 
             GetGameButtonWithTag( tag ).setText( valStr );
             GetGameButtonWithTag( tag ).value = value ;
+
+            double id = (double) Integer.parseInt( tag ) ;
+            int x , y ;
+
+            x = (int) ( ( ( ( id / 10 ) - Math.floor ( id / 10 ) ) * 10 ) - 1 )  ;
+            // 41             4.1           4         4.1       
+
+            y = (int)( (Math.floor( id / 10 )) ) - 1 ;
+
+            sudo_array[x][y] = value ;
 
             SetCurrentLog( "Edited button " + tag + " " + valStr );
         }
@@ -585,7 +576,6 @@ class UI extends JFrame implements ActionListener {
                 String id = String.valueOf( col + ( row * 10 ) ) ;
 
                 SetButtonValue( id, num ) ;
-                Update();
 
                 if (SolveSudoku(sudo_board, n)) {
 
