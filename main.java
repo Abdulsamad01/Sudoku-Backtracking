@@ -48,7 +48,7 @@ class UI extends JFrame implements ActionListener {
 
     JComboBox comboBox ;
 
-    String themes[] = { "Charcoal", "Nuke", "Ocean", "Cutie", "Vector", "Lemon" } ;
+    String themes[] = { "Cutie", "Charcoal", "Nuke", "Ocean", "Vector", "Lemon" } ;
 
     // endregion
 
@@ -66,7 +66,7 @@ class UI extends JFrame implements ActionListener {
             { 0, 0, 0, 0, 0, 0, 0, 7, 4 },
             { 0, 0, 5, 2, 0, 6, 3, 0, 0 }
         };
-        */
+        
 
         for (int[] row : sudo_array) {
             
@@ -88,6 +88,7 @@ class UI extends JFrame implements ActionListener {
         }
 
         SolveSudoku(sudo_array, N) ;
+        */
 
         ImageIcon ico = new ImageIcon( "./Assets/icons8-pastime-64.png" ) ;
         this.setIconImage( ico.getImage() );
@@ -305,7 +306,9 @@ class UI extends JFrame implements ActionListener {
 
                 number =  Integer.parseInt( input.strip() ) ;
 
-                currentSelectedButton.setText( input );
+                SetButtonValue(currentSelectedButton.buttonID , number );
+
+                return ;
             }
 
             catch( Exception err ) {
@@ -341,7 +344,7 @@ class UI extends JFrame implements ActionListener {
             Update(); 
         }
 
-        catch( Exception err ) {  } 
+        catch( Exception err ) { SetLog( "Sync Error" ); } 
     }
 
     void SetTheme( String theme ) {
@@ -418,10 +421,20 @@ class UI extends JFrame implements ActionListener {
 
         for (GameButton gameButton : buttons) {
             
-            float id = (float) Integer.parseInt( gameButton.buttonID ) ;
-            float x , y ;
+            double id = (double) Integer.parseInt( gameButton.buttonID ) ;
+            int x , y ;
 
-            x = ( id / 10 ) - (   )
+            x = (int) ( ( ( ( id / 10 ) - Math.floor ( id / 10 ) ) * 10 ) - 1 )  ;
+            // 41             4.1           4         4.1       
+
+            y = (int)( (Math.floor( id / 10 )) ) - 1 ;
+
+            sudo_array[x][y] = gameButton.value ;
+        }
+
+        for (int[] row : sudo_array) {
+            
+            System.out.println( Arrays.toString(row) );
         }
     }
 
@@ -434,14 +447,15 @@ class UI extends JFrame implements ActionListener {
 
         try {
 
-            GetGameButtonWithTag( tag ).value = value ;
-
             String valStr ;
 
             if( value != 0 ) { valStr = Integer.toString( value ) ; } 
             else { valStr = "  " ; }
 
             GetGameButtonWithTag( tag ).setText( valStr );
+            GetGameButtonWithTag( tag ).value = value ;
+
+            Update();
             SetCurrentLog( "Edited button " + tag + " " + valStr );
         }
 
@@ -487,7 +501,7 @@ class UI extends JFrame implements ActionListener {
         return true;
     }
 
-    // CODE HERE ! CODE HERE ! CODE HERE ! CODE HERE ! CODE HERE ! 
+    
     boolean SolveSudoku( int[][] sudo_board, int n ) {
      
         int row = -1;
@@ -537,7 +551,7 @@ class UI extends JFrame implements ActionListener {
         return false;
     }
     
-    // DO I WANT THIS ACTUALLY ? HMMMMM
+    // DO I WANT THESE ACTUALLY HMMMMM ?
     void Sudoku2Arr( ) {
 
 
