@@ -382,10 +382,12 @@ class UI extends JFrame implements ActionListener {
         catch( Exception err ) { SetCurrentLog( "Sync Error" ); } 
     }
 
-    // SET THEME METHOD SETS THEME TO A SPECIFIC THEME FROM A CONSTANT ARRAY "themes" WHICH IS BASICALLY 
-    // SWITCHING BACKGROUND COLORS 
+    // SET THEME METHOD SETS THEME TO A SPECIFIC THEME FROM A CONSTANT ARRAY "themes" 
+    // WHICH IS BASICALLY SWITCHING BACKGROUND COLORS 
     void SetTheme( String theme ) {
 
+        // SWITCH CASE FOR THEME CHANGING
+        // WHERE "0xRRGGBB" IS RGB HEX CODE FOR COLORS
         switch (theme) {
             case "Charcoal" :
                 
