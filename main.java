@@ -343,10 +343,7 @@ class UI extends JFrame implements ActionListener {
             if (SolveSudoku(sudo_array, N))
             {
                 // print solution
-                for (int[] row : sudo_array) {
-
-                    System.out.println( Arrays.toString( row ) );
-                }
+                DisplayBoard();
             }
             else {
                 
@@ -471,16 +468,22 @@ class UI extends JFrame implements ActionListener {
             sudo_array[x][y] = gameButton.value ;
         }
 
-        for (int[] row : sudo_array) {
-            
-            System.out.println( Arrays.toString(row) );
-        }
+        DisplayBoard();
     }
 
     // GET BUTTON VALUE RETURNS THE VALUE OF A BUTTON WITH A SPECIFIC UNIQUE ID 
     int GetButtonValue( String tag ) {
 
         return GetGameButtonWithTag( tag ).value ;
+    }
+
+    // DISPLAY 2D INT BOARD ARRAY sudo_board IN CONSOLE
+    void DisplayBoard( ) {
+
+        for (int[] row : sudo_array) {
+            
+            System.out.println( Arrays.toString( row ) );
+        }
     }
 
     // SET BUTTON VALUE FINDS A BUTTON WITH ITS UNIQUE TAG 
