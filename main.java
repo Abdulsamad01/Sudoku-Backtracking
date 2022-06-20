@@ -1,17 +1,14 @@
 
-import javax.print.DocFlavor.STRING;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
-import java.util.FormatFlagsConversionMismatchException; 
 
 
 public class main {
@@ -105,7 +102,6 @@ class UI extends JFrame implements ActionListener {
         }
         */
 
-        
         
         JLabel c00 = new JLabel("(0,0)");
         c00.setBounds(20,20, 30, 30);
@@ -421,9 +417,11 @@ class UI extends JFrame implements ActionListener {
     void Update() {
 
         for (GameButton gameButton : buttons) {
-
-            System.out.println( gameButton.buttonID );
             
+            float id = (float) Integer.parseInt( gameButton.buttonID ) ;
+            float x , y ;
+
+            x = ( id / 10 ) - (   )
         }
     }
 
@@ -555,4 +553,3 @@ class UI extends JFrame implements ActionListener {
 
     }
 }
-
