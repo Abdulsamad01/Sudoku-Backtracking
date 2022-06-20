@@ -14,6 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.text.html.HTML.Tag;
 
+import org.w3c.dom.UserDataHandler;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -494,6 +496,8 @@ class UI extends JFrame implements ActionListener {
             sudo_array[x][y] = value ;
 
             SetCurrentLog( "Edited button " + tag + " " + valStr );
+
+            DisplayBoard();
         }
 
         catch( Exception err ) {
@@ -537,9 +541,26 @@ class UI extends JFrame implements ActionListener {
         return true;
     }
 
+    void Update() {
+
+        for (int i = 0; i < 9; i++) {
+            
+            for (int j = 0; j < 9; j++) {
+                
+                int buttonID = j * 10 + i ;
+
+                int val =  GetGameButtonWithTag( Integer.toString( buttonID ) ).value ;
+                
+                sudo_array[i][j] = val ;
+            }
+        }
+    }
+
     // SolveSudoku RECURSIVELY CHECKS IF A NUMBER CAN BE PLACED IN A PLACE IF THE PLACE IS A
     // SAFE PLACE OR NOT    
     boolean SolveSudoku( int[][] sudo_board, int n ) {
+
+        Update();
      
         int row = -1;
         int col = -1;
@@ -574,8 +595,6 @@ class UI extends JFrame implements ActionListener {
             if (isSafe(sudo_board, row, col, num)) {
 
                 String id = String.valueOf( col + ( row * 10 ) ) ;
-
-                SetButtonValue( id, num ) ;
 
                 if (SolveSudoku(sudo_board, n)) {
 
