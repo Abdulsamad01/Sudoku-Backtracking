@@ -1,3 +1,10 @@
+/*
+ * SUDOKU GAME CREATED BY TEAM 6 
+ * YEART 1 ; SEMESTER 2 ; 
+ * COURSE - DATA STRUCTURES AND ALGORITHMS
+ * DEPT - CSE - AIE 
+ */
+
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,16 +22,22 @@ public class main {
     
     public static void main(String[] args) {
         
+        // CREATING NEW UI OBJECT
         new UI() ;        
     }
 }
 
+// CUSTOM GAMEBUTTON WITH EXTRA PROPERTY buttonID 
+// buttonID IS A UNIQUE ID FOR ALL THE BUTTONS IN THIS PROJECT SO THAT
+// WE CAN FIND AN MANAGE BUTTONS USING THIS BUTTONS IN THE CODE
 class GameButton extends JButton {
 
     String buttonID ;
     int value ;
 }
 
+// NEW UI CLASS FOR GUI WHICH INHERITS THE javax.swing.JFrame CLASS 
+// AND IMPLEMENTS ACTIONLISTENER CLASS TO RECORD BUTTONCLICKS 
 class UI extends JFrame implements ActionListener {
 
     // region INTIALIZING CONSTANTS
@@ -32,7 +45,7 @@ class UI extends JFrame implements ActionListener {
     int sudo_array[][] = new int[9][9] ;
 
     GameButton currentSelectedButton ;
-
+    
     GameButton buttons[] ;
     GameButton button11 ,button12 ,button13 ,button14 ,button15 ,button16 ,button17 ,button18 ,button19 ;
     GameButton button21 ,button22 ,button23 ,button24 ,button25 ,button26 ,button27 ,button28 ,button29 ;
@@ -122,6 +135,8 @@ class UI extends JFrame implements ActionListener {
 
         // region INIT BUTTONS
 
+        // INITIALIZING ALL THE BUTTONS  
+        // refer "Assets/codeGenerator.ipynb" for code
         button11 = new GameButton() ; button11.setBounds(50, 50, 50, 50); button11.setBackground(Color.WHITE); button11.addActionListener( this ); button11.buttonID = "11" ;
         button12 = new GameButton() ; button12.setBounds(50, 100, 50, 50); button12.setBackground(Color.WHITE); button12.addActionListener( this ); button12.buttonID = "12" ;
         button13 = new GameButton() ; button13.setBounds(50, 150, 50, 50); button13.setBackground(Color.WHITE); button13.addActionListener( this ); button13.buttonID = "13" ;
@@ -260,6 +275,8 @@ class UI extends JFrame implements ActionListener {
             
         // region ADD ELEMENTS
 
+        // ADDING ALL THE BUTTONS TO THE GUI 
+        // refer "Assets/codeGenerator.ipynb" for code
         this.add(c00) ;this.add(c01) ;this.add(c10) ;this.add(c11) ;this.add( theme ) ;
         
         this.add( buttonIN ) ;this.add( buttonGN ) ;this.add( buttonSL ) ;this.add( buttonRS ) ;this.add( buttonEX ) ;
@@ -344,9 +361,11 @@ class UI extends JFrame implements ActionListener {
             Update(); 
         }
 
-        catch( Exception err ) { SetLog( "Sync Error" ); } 
+        catch( Exception err ) { SetCurrentLog( "Sync Error" ); } 
     }
 
+    // SET THEME METHOD SETS THEME TO A SPECIFIC THEME FROM A CONSTANT ARRAY "themes" WHICH IS BASICALLY 
+    // SWITCHING BACKGROUND COLORS 
     void SetTheme( String theme ) {
 
         switch (theme) {
@@ -385,16 +404,20 @@ class UI extends JFrame implements ActionListener {
         }
     }
 
+    // GET CURRENT LOG GETS THE CURRENT GAME LOG THAT IS BEING DISPLAYED IN THE LOG FIELD
     String GetCurrentLog( ) { 
 
         return gameLog.getText() ;
     }
 
+    // SETLOG METHOD SETS GAME LOG TO A STRING SO THAT THE THING IS DISPALYED IN THE LOG FIELD 
     void SetCurrentLog( String log ) { 
         
+        gameLog.setText( null );
         gameLog.setText( log ); 
     }
 
+    // GET BUTTON WITH TAG RETURNS THE BUTTON WITH ITS UNIQUE ID
     GameButton GetGameButtonWithTag ( String tag  ) {
         
         GameButton temp ;
@@ -411,12 +434,7 @@ class UI extends JFrame implements ActionListener {
         return null ;
     }
 
-    void SetLog( String update ) {
-
-        gameLog.setText( null );
-        gameLog.setText( update );
-    }
-
+    // UPDATE METHOD SYNCS BETWEEN GUI AND MAIN ARRAY sudo_array 
     void Update() {
 
         for (GameButton gameButton : buttons) {
@@ -438,11 +456,14 @@ class UI extends JFrame implements ActionListener {
         }
     }
 
+    // GET BUTTON VALUE RETURNS THE VALUE OF A BUTTON WITH A SPECIFIC UNIQUE ID 
     int GetButtonValue( String tag ) {
 
         return GetGameButtonWithTag( tag ).value ;
     }
 
+    // SET BUTTON VALUE FINDS A BUTTON WITH ITS UNIQUE TAG 
+    // AND SETS THE BUTTON VALUE AND SPRITE TO THE INPUT VALUE FROM THE INPUT FIELD
     void SetButtonValue( String tag, int value ) {
 
         try {
@@ -465,9 +486,8 @@ class UI extends JFrame implements ActionListener {
         }
     }
 
-    public static boolean isSafe(int[][] board,
-                                 int row, int col,
-                                 int num)
+    // IS SAFE CHECKS IF A NUMBER IS IN A 3X3 BOX, ROW OR COLUMN AND RETURNS TRUE IF SAFE AND FALSE IF NOT SAFE
+    public static boolean isSafe(int[][] board,int row, int col,int num)
     {
 
         for (int d = 0; d < board.length; d++) {
@@ -501,7 +521,8 @@ class UI extends JFrame implements ActionListener {
         return true;
     }
 
-    
+    // SolveSudoku RECURSIVELY CHECKS IF A NUMBER CAN BE PLACED IN A PLACE IF THE PLACE IS A
+    // SAFE PLACE OR NOT    
     boolean SolveSudoku( int[][] sudo_board, int n ) {
      
         int row = -1;
