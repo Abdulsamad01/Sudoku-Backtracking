@@ -325,12 +325,33 @@ class UI extends JFrame implements ActionListener {
 
                 SetButtonValue(currentSelectedButton.buttonID , number );
 
+                Update();
+
                 return ;
             }
 
             catch( Exception err ) {
 
                 SetCurrentLog( "Parsing error" );
+            }
+        }
+
+        if ( event_source.buttonID == "SLV" ) {
+
+            int N = sudo_array.length;
+ 
+            if (SolveSudoku(sudo_array, N))
+            {
+                // print solution
+                for (int[] row : sudo_array) {
+
+                    System.out.println( Arrays.toString( row ) );
+                }
+            }
+            else {
+                
+                System.out.println("No solution");
+                SetCurrentLog("No Solution, Recheck board ?");
             }
         }
 
@@ -476,7 +497,6 @@ class UI extends JFrame implements ActionListener {
             GetGameButtonWithTag( tag ).setText( valStr );
             GetGameButtonWithTag( tag ).value = value ;
 
-            Update();
             SetCurrentLog( "Edited button " + tag + " " + valStr );
         }
 
@@ -557,7 +577,10 @@ class UI extends JFrame implements ActionListener {
 
             if (isSafe(sudo_board, row, col, num)) {
 
-                sudo_board[row][col] = num;
+                String id = String.valueOf( col + ( row * 10 ) ) ;
+
+                SetButtonValue( id, num ) ;
+                Update();
 
                 if (SolveSudoku(sudo_board, n)) {
 
