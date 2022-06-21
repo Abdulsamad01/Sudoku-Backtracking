@@ -1,4 +1,4 @@
-# Backtracking Sudoku Solver and Generator
+# Backtracking Sudoku Solver
 ### *with GUI*
 
 End Semester project for BTech I'st year AIE
