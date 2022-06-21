@@ -5,8 +5,6 @@
  * DEPT - CSE - AIE 
  */
 
-import javax.annotation.processing.SupportedAnnotationTypes;
-import javax.print.attribute.standard.Sides;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -75,46 +73,8 @@ class UI extends JFrame implements ActionListener {
 
     // endregion
 
+    // UI CLASS CONSTRUCTOR
     UI() {
-
-        /*
-        sudo_array = new int[][] {
-            { 3, 0, 6, 5, 0, 8, 4, 0, 0 },
-            { 5, 2, 0, 0, 0, 0, 0, 0, 0 },
-            { 0, 8, 7, 0, 0, 0, 0, 3, 1 },
-            { 0, 0, 3, 0, 1, 0, 0, 8, 0 },
-            { 9, 0, 0, 8, 6, 3, 0, 0, 5 },
-            { 0, 5, 0, 0, 9, 0, 6, 0, 0 },
-            { 1, 3, 0, 0, 0, 0, 2, 5, 0 },
-            { 0, 0, 0, 0, 0, 0, 0, 7, 4 },
-            { 0, 0, 5, 2, 0, 6, 3, 0, 0 }
-        };
-        
-
-        for (int[] row : sudo_array) {
-            
-            System.out.println( Arrays.toString(row) );
-        }
-
-        int N = sudo_array.length;
- 
-        if (SolveSudoku(sudo_array, N))
-        {
-            // print solution
-            for (int[] row : sudo_array) {
-
-                System.out.println( Arrays.toString( row ) );
-            }
-        }
-        else {
-            System.out.println("No solution");
-        }
-
-        SolveSudoku(sudo_array, N) ;
-        */
-
-        ImageIcon ico = new ImageIcon( "./Assets/icons8-pastime-64.png" ) ;
-        this.setIconImage( ico.getImage() );
         
         c00 = new JLabel("(0,0)");
         c00.setBounds(20,20, 30, 30);
@@ -271,6 +231,14 @@ class UI extends JFrame implements ActionListener {
         buttonGN.setText("Generate");
         buttonRS.setText("Reset");
         buttonEX.setText("Give up");
+
+        try {
+            
+            ImageIcon ico = new ImageIcon( "./Assets/icons8-pastime-64.png" ) ;
+            this.setIconImage( ico.getImage() );
+        }
+
+        catch( Exception err ) { SetCurrentLog( "Icon not found : (" ); }
             
         // region ADD ELEMENTS
 
