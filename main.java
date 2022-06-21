@@ -5,6 +5,7 @@
  * DEPT - CSE - AIE 
  */
 
+import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.print.attribute.standard.Sides;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -320,12 +321,13 @@ class UI extends JFrame implements ActionListener {
             catch( Exception err ) {
 
                 SetCurrentLog( "Parsing error" );
+                System.out.println( err.getMessage() );
             }
         }
 
-        if ( event_source.buttonID == "RES" ) {
-        
-            DisplayBoard();
+        if( event_source.buttonID == "RES" ) { Reset(); }
+
+        if ( event_source.buttonID == "GEN" ) {
 
             sudo_array = new int[][] {
                 { 3, 0, 6, 5, 0, 8, 4, 0, 0 },
@@ -389,7 +391,12 @@ class UI extends JFrame implements ActionListener {
             }
         }
 
-        catch( Exception err ) { SetCurrentLog( "Error" ); } 
+        catch( Exception err ) { 
+            
+            SetCurrentLog( "Error" ); 
+            System.out.println( err.getMessage() );
+        } 
+        
     }
 
     // SET THEME METHOD SETS THEME TO A SPECIFIC THEME FROM A CONSTANT ARRAY "themes" 
@@ -434,7 +441,21 @@ class UI extends JFrame implements ActionListener {
         }
     }
 
+    void Reset() {
+
+        for (int i = 0; i < sudo_array.length; i++) {
+            
+            for (int j = 0; j < sudo_array.length; j++) {
+                
+                sudo_array[i][j] = 0 ;
+            }
+        }
+
+        Sync() ;
+    }
+
     // SYNC FUNCTION SYNCS BUTTONS WITH ARRAY
+    // SYNC METHOD SYNCS BETWEEN GUI AND MAIN ARRAY sudo_array 
     void Sync() {
 
         for (int i = 11; i <= 99; i++) {
@@ -480,8 +501,6 @@ class UI extends JFrame implements ActionListener {
         }
         return null ;
     }
-
-    // UPDATE METHOD SYNCS BETWEEN GUI AND MAIN ARRAY sudo_array 
 
     // GET BUTTON VALUE RETURNS THE VALUE OF A BUTTON WITH A SPECIFIC UNIQUE ID 
     int GetButtonValue( String tag ) {
@@ -529,44 +548,13 @@ class UI extends JFrame implements ActionListener {
 
         catch( Exception err ) {
 
-            SetCurrentLog( err.getMessage() );
+            SetCurrentLog( "Error" ); 
+            System.out.println( err.getMessage() );
         }
     }
 
     // IS SAFE CHECKS IF A NUMBER IS IN A 3X3 BOX, ROW OR COLUMN AND RETURNS TRUE IF SAFE AND FALSE IF NOT SAFE
-    public static boolean isSafe(int[][] board,int row, int col,int num)
-    {
-
-        for (int d = 0; d < board.length; d++) {
-             
-            if (board[row][d] == num) {
-
-                return false;
-            }
-        }
- 
-        for (int r = 0; r < board.length; r++) {
-             
-            if (board[r][col] == num) {
-
-                return false;
-            }
-        }
- 
-        int sqrt = (int)Math.sqrt(board.length);
-        int boxRowStart = row - row % sqrt;
-        int boxColStart = col - col % sqrt;
- 
-        for (int r = boxRowStart; r < boxRowStart + sqrt; r++) {
-
-            for (int d = boxColStart; d < boxColStart + sqrt; d++) {
-
-                if (board[r][d] == num) { return false; }
-            }
-        }
- 
-        return true;
-    }
+    
 
     void Update() {
 
@@ -585,51 +573,106 @@ class UI extends JFrame implements ActionListener {
 
     // SolveSudoku RECURSIVELY CHECKS IF A NUMBER CAN BE PLACED IN A PLACE IF THE PLACE IS A
     // SAFE PLACE OR NOT    
-    boolean SolveSudoku( int[][] sudo_board, int n ) {
+    public static boolean isSafe(int[][] board, int row, int col, int num ) {
         
+        // Row has the unique (row-clash)
+        for (int d = 0; d < board.length; d++)
+        {
+             
+            // Check if the number we are trying to
+            // place is already present in
+            // that row, return false;
+            if (board[row][d] == num) {
+                return false;
+            }
+        }
+ 
+        // Column has the unique numbers (column-clash)
+        for (int r = 0; r < board.length; r++)
+        {
+             
+            // Check if the number
+            // we are trying to
+            // place is already present in
+            // that column, return false;
+            if (board[r][col] == num)
+            {
+                return false;
+            }
+        }
+ 
+        // Corresponding square has
+        // unique number (box-clash)
+        int sqrt = (int)Math.sqrt(board.length);
+        int boxRowStart = row - row % sqrt;
+        int boxColStart = col - col % sqrt;
+ 
+        for (int r = boxRowStart;
+             r < boxRowStart + sqrt; r++)
+        {
+            for (int d = boxColStart;
+                 d < boxColStart + sqrt; d++)
+            {
+                if (board[r][d] == num)
+                {
+                    return false;
+                }
+            }
+        }
+ 
+        // if there is no clash, it's safe
+        return true;
+    }
+ 
+    public boolean SolveSudoku( int[][] board, int n )
+    {
         int row = -1;
         int col = -1;
         boolean isEmpty = true;
-        for (int i = 0; i < n; i++) {
-
-            for (int j = 0; j < n; j++) {
-
-                if (sudo_board[i][j] == 0) {
-
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                if (board[i][j] == 0)
+                {
                     row = i;
                     col = j;
  
+                    // We still have some remaining
+                    // missing values in Sudoku
                     isEmpty = false;
                     break;
                 }
             }
-
             if (!isEmpty) {
-            
                 break;
             }
         }
  
-        if (isEmpty) {
-
+        // No empty space left
+        if (isEmpty)
+        {
             return true;
         }
-
-        for (int num = 1; num <= n; num++) {
-
-            if (isSafe(sudo_board, row, col, num)) {
-
-                String id = String.valueOf( col + ( row * 10 ) ) ;
-
-                if (SolveSudoku(sudo_board, n)) {
-
+ 
+        // Else for each-row backtrack
+        for (int num = 1; num <= n; num++)
+        {
+            if (isSafe(board, row, col, num))
+            {
+                board[row][col] = num;
+                if (SolveSudoku(board, n))
+                {
+                    // print(board, n);
                     return true;
                 }
-                else {
-                    
-                    sudo_board[row][col] = 0;
+                else
+                {
+                    // replace it
+                    board[row][col] = 0;
                 }
             }
+            Sync() ;
         }
         return false;
     }
