@@ -1,10 +1,12 @@
-/*
- * SUDOKU GAME CREATED BY TEAM 6 
- * YEART 1 ; SEMESTER 2 ; 
+/*  
+ * BACKTRACKING SUDOKU SOLVER
+ * CREATED BY TEAM 6 
+ * YEAR 1 ; SEMESTER 2 ; 
  * COURSE - DATA STRUCTURES AND ALGORITHMS
- * DEPT - CSE - AIE 
+ * DEPT - CSE - AIE  
  */
 
+ // IMPORTING REQUIRED MODULES
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -44,7 +46,7 @@ class UI extends JFrame implements ActionListener {
     int sudo_array[][] = new int[9][9] ;
 
     GameButton currentSelectedButton ;
-    
+   
     GameButton buttons[] ;
     GameButton button11 ,button12 ,button13 ,button14 ,button15 ,button16 ,button17 ,button18 ,button19 ;
     GameButton button21 ,button22 ,button23 ,button24 ,button25 ,button26 ,button27 ,button28 ,button29 ;
@@ -95,96 +97,97 @@ class UI extends JFrame implements ActionListener {
         // region INIT BUTTONS
 
         // INITIALIZING ALL THE BUTTONS  
+        // AUTO GENERATED CODE
         // refer "Assets/codeGenerator.ipynb" for code
-        button11 = new GameButton() ; button11.setBounds(50, 50, 50, 50); button11.setBackground(Color.WHITE); button11.addActionListener( this ); button11.buttonID = "11" ;
-        button12 = new GameButton() ; button12.setBounds(50, 100, 50, 50); button12.setBackground(Color.WHITE); button12.addActionListener( this ); button12.buttonID = "12" ;
-        button13 = new GameButton() ; button13.setBounds(50, 150, 50, 50); button13.setBackground(Color.WHITE); button13.addActionListener( this ); button13.buttonID = "13" ;
-        button14 = new GameButton() ; button14.setBounds(50, 200, 50, 50); button14.setBackground(Color.WHITE); button14.addActionListener( this ); button14.buttonID = "14" ;
-        button15 = new GameButton() ; button15.setBounds(50, 250, 50, 50); button15.setBackground(Color.WHITE); button15.addActionListener( this ); button15.buttonID = "15" ;
-        button16 = new GameButton() ; button16.setBounds(50, 300, 50, 50); button16.setBackground(Color.WHITE); button16.addActionListener( this ); button16.buttonID = "16" ;
-        button17 = new GameButton() ; button17.setBounds(50, 350, 50, 50); button17.setBackground(Color.WHITE); button17.addActionListener( this ); button17.buttonID = "17" ;
-        button18 = new GameButton() ; button18.setBounds(50, 400, 50, 50); button18.setBackground(Color.WHITE); button18.addActionListener( this ); button18.buttonID = "18" ;
-        button19 = new GameButton() ; button19.setBounds(50, 450, 50, 50); button19.setBackground(Color.WHITE); button19.addActionListener( this ); button19.buttonID = "19" ;
+        button11 = new GameButton() ; button11.setBounds(50, 50, 50, 50 ); button11.setBackground(new Color( 0xffffff )); button11.addActionListener( this ); button11.buttonID = "11" ;
+        button12 = new GameButton() ; button12.setBounds(50, 100, 50, 50); button12.setBackground(new Color( 0xffffff )); button12.addActionListener( this ); button12.buttonID = "12" ;
+        button13 = new GameButton() ; button13.setBounds(50, 150, 50, 50); button13.setBackground(new Color( 0xffffff )); button13.addActionListener( this ); button13.buttonID = "13" ;
+        button14 = new GameButton() ; button14.setBounds(50, 200, 50, 50); button14.setBackground(new Color( 0xeeeeee )); button14.addActionListener( this ); button14.buttonID = "14" ;
+        button15 = new GameButton() ; button15.setBounds(50, 250, 50, 50); button15.setBackground(new Color( 0xeeeeee )); button15.addActionListener( this ); button15.buttonID = "15" ;
+        button16 = new GameButton() ; button16.setBounds(50, 300, 50, 50); button16.setBackground(new Color( 0xeeeeee )); button16.addActionListener( this ); button16.buttonID = "16" ;
+        button17 = new GameButton() ; button17.setBounds(50, 350, 50, 50); button17.setBackground(new Color( 0xffffff )); button17.addActionListener( this ); button17.buttonID = "17" ;
+        button18 = new GameButton() ; button18.setBounds(50, 400, 50, 50); button18.setBackground(new Color( 0xffffff )); button18.addActionListener( this ); button18.buttonID = "18" ;
+        button19 = new GameButton() ; button19.setBounds(50, 450, 50, 50); button19.setBackground(new Color( 0xffffff )); button19.addActionListener( this ); button19.buttonID = "19" ;
      
-        button21 = new GameButton() ; button21.setBounds(100, 50, 50, 50); button21.setBackground(Color.WHITE); button21.addActionListener( this ); button21.buttonID = "21" ;
-        button22 = new GameButton() ; button22.setBounds(100, 100, 50, 50); button22.setBackground(Color.WHITE); button22.addActionListener( this ); button22.buttonID = "22" ;
-        button23 = new GameButton() ; button23.setBounds(100, 150, 50, 50); button23.setBackground(Color.WHITE); button23.addActionListener( this ); button23.buttonID = "23" ;
-        button24 = new GameButton() ; button24.setBounds(100, 200, 50, 50); button24.setBackground(Color.WHITE); button24.addActionListener( this ); button24.buttonID = "24" ;
-        button25 = new GameButton() ; button25.setBounds(100, 250, 50, 50); button25.setBackground(Color.WHITE); button25.addActionListener( this ); button25.buttonID = "25" ;
-        button26 = new GameButton() ; button26.setBounds(100, 300, 50, 50); button26.setBackground(Color.WHITE); button26.addActionListener( this ); button26.buttonID = "26" ;
-        button27 = new GameButton() ; button27.setBounds(100, 350, 50, 50); button27.setBackground(Color.WHITE); button27.addActionListener( this ); button27.buttonID = "27" ;
-        button28 = new GameButton() ; button28.setBounds(100, 400, 50, 50); button28.setBackground(Color.WHITE); button28.addActionListener( this ); button28.buttonID = "28" ;
-        button29 = new GameButton() ; button29.setBounds(100, 450, 50, 50); button29.setBackground(Color.WHITE); button29.addActionListener( this ); button29.buttonID = "29" ;
+        button21 = new GameButton() ; button21.setBounds(100, 50, 50, 50) ; button21.setBackground(new Color( 0xffffff )); button21.addActionListener( this ); button21.buttonID = "21" ;
+        button22 = new GameButton() ; button22.setBounds(100, 100, 50, 50); button22.setBackground(new Color( 0xffffff )); button22.addActionListener( this ); button22.buttonID = "22" ;
+        button23 = new GameButton() ; button23.setBounds(100, 150, 50, 50); button23.setBackground(new Color( 0xffffff )); button23.addActionListener( this ); button23.buttonID = "23" ;
+        button24 = new GameButton() ; button24.setBounds(100, 200, 50, 50); button24.setBackground(new Color( 0xeeeeee )); button24.addActionListener( this ); button24.buttonID = "24" ;
+        button25 = new GameButton() ; button25.setBounds(100, 250, 50, 50); button25.setBackground(new Color( 0xeeeeee )); button25.addActionListener( this ); button25.buttonID = "25" ;
+        button26 = new GameButton() ; button26.setBounds(100, 300, 50, 50); button26.setBackground(new Color( 0xeeeeee )); button26.addActionListener( this ); button26.buttonID = "26" ;
+        button27 = new GameButton() ; button27.setBounds(100, 350, 50, 50); button27.setBackground(new Color( 0xffffff )); button27.addActionListener( this ); button27.buttonID = "27" ;
+        button28 = new GameButton() ; button28.setBounds(100, 400, 50, 50); button28.setBackground(new Color( 0xffffff )); button28.addActionListener( this ); button28.buttonID = "28" ;
+        button29 = new GameButton() ; button29.setBounds(100, 450, 50, 50); button29.setBackground(new Color( 0xffffff )); button29.addActionListener( this ); button29.buttonID = "29" ;
      
-        button31 = new GameButton() ; button31.setBounds(150, 50, 50, 50); button31.setBackground(Color.WHITE); button31.addActionListener( this ); button31.buttonID = "31" ;
-        button32 = new GameButton() ; button32.setBounds(150, 100, 50, 50); button32.setBackground(Color.WHITE); button32.addActionListener( this ); button32.buttonID = "32" ;
-        button33 = new GameButton() ; button33.setBounds(150, 150, 50, 50); button33.setBackground(Color.WHITE); button33.addActionListener( this ); button33.buttonID = "33" ;
-        button34 = new GameButton() ; button34.setBounds(150, 200, 50, 50); button34.setBackground(Color.WHITE); button34.addActionListener( this ); button34.buttonID = "34" ;
-        button35 = new GameButton() ; button35.setBounds(150, 250, 50, 50); button35.setBackground(Color.WHITE); button35.addActionListener( this ); button35.buttonID = "35" ;
-        button36 = new GameButton() ; button36.setBounds(150, 300, 50, 50); button36.setBackground(Color.WHITE); button36.addActionListener( this ); button36.buttonID = "36" ;
-        button37 = new GameButton() ; button37.setBounds(150, 350, 50, 50); button37.setBackground(Color.WHITE); button37.addActionListener( this ); button37.buttonID = "37" ;
-        button38 = new GameButton() ; button38.setBounds(150, 400, 50, 50); button38.setBackground(Color.WHITE); button38.addActionListener( this ); button38.buttonID = "38" ;
-        button39 = new GameButton() ; button39.setBounds(150, 450, 50, 50); button39.setBackground(Color.WHITE); button39.addActionListener( this ); button39.buttonID = "39" ;
+        button31 = new GameButton() ; button31.setBounds(150, 50, 50, 50) ; button31.setBackground(new Color( 0xffffff )); button31.addActionListener( this ); button31.buttonID = "31" ;
+        button32 = new GameButton() ; button32.setBounds(150, 100, 50, 50); button32.setBackground(new Color( 0xffffff )); button32.addActionListener( this ); button32.buttonID = "32" ;
+        button33 = new GameButton() ; button33.setBounds(150, 150, 50, 50); button33.setBackground(new Color( 0xffffff )); button33.addActionListener( this ); button33.buttonID = "33" ;
+        button34 = new GameButton() ; button34.setBounds(150, 200, 50, 50); button34.setBackground(new Color( 0xeeeeee )); button34.addActionListener( this ); button34.buttonID = "34" ;
+        button35 = new GameButton() ; button35.setBounds(150, 250, 50, 50); button35.setBackground(new Color( 0xeeeeee )); button35.addActionListener( this ); button35.buttonID = "35" ;
+        button36 = new GameButton() ; button36.setBounds(150, 300, 50, 50); button36.setBackground(new Color( 0xeeeeee )); button36.addActionListener( this ); button36.buttonID = "36" ;
+        button37 = new GameButton() ; button37.setBounds(150, 350, 50, 50); button37.setBackground(new Color( 0xffffff )); button37.addActionListener( this ); button37.buttonID = "37" ;
+        button38 = new GameButton() ; button38.setBounds(150, 400, 50, 50); button38.setBackground(new Color( 0xffffff )); button38.addActionListener( this ); button38.buttonID = "38" ;
+        button39 = new GameButton() ; button39.setBounds(150, 450, 50, 50); button39.setBackground(new Color( 0xffffff )); button39.addActionListener( this ); button39.buttonID = "39" ;
      
-        button41 = new GameButton() ; button41.setBounds(200, 50, 50, 50); button41.setBackground(Color.WHITE); button41.addActionListener( this ); button41.buttonID = "41" ;
-        button42 = new GameButton() ; button42.setBounds(200, 100, 50, 50); button42.setBackground(Color.WHITE); button42.addActionListener( this ); button42.buttonID = "42" ;
-        button43 = new GameButton() ; button43.setBounds(200, 150, 50, 50); button43.setBackground(Color.WHITE); button43.addActionListener( this ); button43.buttonID = "43" ;
-        button44 = new GameButton() ; button44.setBounds(200, 200, 50, 50); button44.setBackground(Color.WHITE); button44.addActionListener( this ); button44.buttonID = "44" ;
-        button45 = new GameButton() ; button45.setBounds(200, 250, 50, 50); button45.setBackground(Color.WHITE); button45.addActionListener( this ); button45.buttonID = "45" ;
-        button46 = new GameButton() ; button46.setBounds(200, 300, 50, 50); button46.setBackground(Color.WHITE); button46.addActionListener( this ); button46.buttonID = "46" ;
-        button47 = new GameButton() ; button47.setBounds(200, 350, 50, 50); button47.setBackground(Color.WHITE); button47.addActionListener( this ); button47.buttonID = "47" ;
-        button48 = new GameButton() ; button48.setBounds(200, 400, 50, 50); button48.setBackground(Color.WHITE); button48.addActionListener( this ); button48.buttonID = "48" ;
-        button49 = new GameButton() ; button49.setBounds(200, 450, 50, 50); button49.setBackground(Color.WHITE); button49.addActionListener( this ); button49.buttonID = "49" ;
+        button41 = new GameButton() ; button41.setBounds(200, 50, 50, 50) ; button41.setBackground(new Color( 0xeeeeee )); button41.addActionListener( this ); button41.buttonID = "41" ;
+        button42 = new GameButton() ; button42.setBounds(200, 100, 50, 50); button42.setBackground(new Color( 0xeeeeee )); button42.addActionListener( this ); button42.buttonID = "42" ;
+        button43 = new GameButton() ; button43.setBounds(200, 150, 50, 50); button43.setBackground(new Color( 0xeeeeee )); button43.addActionListener( this ); button43.buttonID = "43" ;
+        button44 = new GameButton() ; button44.setBounds(200, 200, 50, 50); button44.setBackground(new Color( 0xffffff )); button44.addActionListener( this ); button44.buttonID = "44" ;
+        button45 = new GameButton() ; button45.setBounds(200, 250, 50, 50); button45.setBackground(new Color( 0xffffff )); button45.addActionListener( this ); button45.buttonID = "45" ;
+        button46 = new GameButton() ; button46.setBounds(200, 300, 50, 50); button46.setBackground(new Color( 0xffffff )); button46.addActionListener( this ); button46.buttonID = "46" ;
+        button47 = new GameButton() ; button47.setBounds(200, 350, 50, 50); button47.setBackground(new Color( 0xeeeeee )); button47.addActionListener( this ); button47.buttonID = "47" ;
+        button48 = new GameButton() ; button48.setBounds(200, 400, 50, 50); button48.setBackground(new Color( 0xeeeeee )); button48.addActionListener( this ); button48.buttonID = "48" ;
+        button49 = new GameButton() ; button49.setBounds(200, 450, 50, 50); button49.setBackground(new Color( 0xeeeeee )); button49.addActionListener( this ); button49.buttonID = "49" ;
      
-        button51 = new GameButton() ; button51.setBounds(250, 50, 50, 50); button51.setBackground(Color.WHITE); button51.addActionListener( this ); button51.buttonID = "51" ;
-        button52 = new GameButton() ; button52.setBounds(250, 100, 50, 50); button52.setBackground(Color.WHITE); button52.addActionListener( this ); button52.buttonID = "52" ;
-        button53 = new GameButton() ; button53.setBounds(250, 150, 50, 50); button53.setBackground(Color.WHITE); button53.addActionListener( this ); button53.buttonID = "53" ;
-        button54 = new GameButton() ; button54.setBounds(250, 200, 50, 50); button54.setBackground(Color.WHITE); button54.addActionListener( this ); button54.buttonID = "54" ;
-        button55 = new GameButton() ; button55.setBounds(250, 250, 50, 50); button55.setBackground(Color.WHITE); button55.addActionListener( this ); button55.buttonID = "55" ;
-        button56 = new GameButton() ; button56.setBounds(250, 300, 50, 50); button56.setBackground(Color.WHITE); button56.addActionListener( this ); button56.buttonID = "56" ;
-        button57 = new GameButton() ; button57.setBounds(250, 350, 50, 50); button57.setBackground(Color.WHITE); button57.addActionListener( this ); button57.buttonID = "57" ;
-        button58 = new GameButton() ; button58.setBounds(250, 400, 50, 50); button58.setBackground(Color.WHITE); button58.addActionListener( this ); button58.buttonID = "58" ;
-        button59 = new GameButton() ; button59.setBounds(250, 450, 50, 50); button59.setBackground(Color.WHITE); button59.addActionListener( this ); button59.buttonID = "59" ;
+        button51 = new GameButton() ; button51.setBounds(250, 50, 50, 50) ; button51.setBackground(new Color( 0xeeeeee )); button51.addActionListener( this ); button51.buttonID = "51" ;
+        button52 = new GameButton() ; button52.setBounds(250, 100, 50, 50); button52.setBackground(new Color( 0xeeeeee )); button52.addActionListener( this ); button52.buttonID = "52" ;
+        button53 = new GameButton() ; button53.setBounds(250, 150, 50, 50); button53.setBackground(new Color( 0xeeeeee )); button53.addActionListener( this ); button53.buttonID = "53" ;
+        button54 = new GameButton() ; button54.setBounds(250, 200, 50, 50); button54.setBackground(new Color( 0xffffff )); button54.addActionListener( this ); button54.buttonID = "54" ;
+        button55 = new GameButton() ; button55.setBounds(250, 250, 50, 50); button55.setBackground(new Color( 0xffffff )); button55.addActionListener( this ); button55.buttonID = "55" ;
+        button56 = new GameButton() ; button56.setBounds(250, 300, 50, 50); button56.setBackground(new Color( 0xffffff )); button56.addActionListener( this ); button56.buttonID = "56" ;
+        button57 = new GameButton() ; button57.setBounds(250, 350, 50, 50); button57.setBackground(new Color( 0xeeeeee )); button57.addActionListener( this ); button57.buttonID = "57" ;
+        button58 = new GameButton() ; button58.setBounds(250, 400, 50, 50); button58.setBackground(new Color( 0xeeeeee )); button58.addActionListener( this ); button58.buttonID = "58" ;
+        button59 = new GameButton() ; button59.setBounds(250, 450, 50, 50); button59.setBackground(new Color( 0xeeeeee )); button59.addActionListener( this ); button59.buttonID = "59" ;
      
-        button61 = new GameButton() ; button61.setBounds(300, 50, 50, 50); button61.setBackground(Color.WHITE); button61.addActionListener( this ); button61.buttonID = "61" ;
-        button62 = new GameButton() ; button62.setBounds(300, 100, 50, 50); button62.setBackground(Color.WHITE); button62.addActionListener( this ); button62.buttonID = "62" ;
-        button63 = new GameButton() ; button63.setBounds(300, 150, 50, 50); button63.setBackground(Color.WHITE); button63.addActionListener( this ); button63.buttonID = "63" ;
-        button64 = new GameButton() ; button64.setBounds(300, 200, 50, 50); button64.setBackground(Color.WHITE); button64.addActionListener( this ); button64.buttonID = "64" ;
-        button65 = new GameButton() ; button65.setBounds(300, 250, 50, 50); button65.setBackground(Color.WHITE); button65.addActionListener( this ); button65.buttonID = "65" ;
-        button66 = new GameButton() ; button66.setBounds(300, 300, 50, 50); button66.setBackground(Color.WHITE); button66.addActionListener( this ); button66.buttonID = "66" ;
-        button67 = new GameButton() ; button67.setBounds(300, 350, 50, 50); button67.setBackground(Color.WHITE); button67.addActionListener( this ); button67.buttonID = "67" ;
-        button68 = new GameButton() ; button68.setBounds(300, 400, 50, 50); button68.setBackground(Color.WHITE); button68.addActionListener( this ); button68.buttonID = "68" ;
-        button69 = new GameButton() ; button69.setBounds(300, 450, 50, 50); button69.setBackground(Color.WHITE); button69.addActionListener( this ); button69.buttonID = "69" ;
+        button61 = new GameButton() ; button61.setBounds(300, 50, 50, 50) ; button61.setBackground(new Color( 0xeeeeee )); button61.addActionListener( this ); button61.buttonID = "61" ;
+        button62 = new GameButton() ; button62.setBounds(300, 100, 50, 50); button62.setBackground(new Color( 0xeeeeee )); button62.addActionListener( this ); button62.buttonID = "62" ;
+        button63 = new GameButton() ; button63.setBounds(300, 150, 50, 50); button63.setBackground(new Color( 0xeeeeee )); button63.addActionListener( this ); button63.buttonID = "63" ;
+        button64 = new GameButton() ; button64.setBounds(300, 200, 50, 50); button64.setBackground(new Color( 0xffffff )); button64.addActionListener( this ); button64.buttonID = "64" ;
+        button65 = new GameButton() ; button65.setBounds(300, 250, 50, 50); button65.setBackground(new Color( 0xffffff )); button65.addActionListener( this ); button65.buttonID = "65" ;
+        button66 = new GameButton() ; button66.setBounds(300, 300, 50, 50); button66.setBackground(new Color( 0xffffff )); button66.addActionListener( this ); button66.buttonID = "66" ;
+        button67 = new GameButton() ; button67.setBounds(300, 350, 50, 50); button67.setBackground(new Color( 0xeeeeee )); button67.addActionListener( this ); button67.buttonID = "67" ;
+        button68 = new GameButton() ; button68.setBounds(300, 400, 50, 50); button68.setBackground(new Color( 0xeeeeee )); button68.addActionListener( this ); button68.buttonID = "68" ;
+        button69 = new GameButton() ; button69.setBounds(300, 450, 50, 50); button69.setBackground(new Color( 0xeeeeee )); button69.addActionListener( this ); button69.buttonID = "69" ;
      
-        button71 = new GameButton() ; button71.setBounds(350, 50, 50, 50); button71.setBackground(Color.WHITE); button71.addActionListener( this ); button71.buttonID = "71" ;
-        button72 = new GameButton() ; button72.setBounds(350, 100, 50, 50); button72.setBackground(Color.WHITE); button72.addActionListener( this ); button72.buttonID = "72" ;
-        button73 = new GameButton() ; button73.setBounds(350, 150, 50, 50); button73.setBackground(Color.WHITE); button73.addActionListener( this ); button73.buttonID = "73" ;
-        button74 = new GameButton() ; button74.setBounds(350, 200, 50, 50); button74.setBackground(Color.WHITE); button74.addActionListener( this ); button74.buttonID = "74" ;
-        button75 = new GameButton() ; button75.setBounds(350, 250, 50, 50); button75.setBackground(Color.WHITE); button75.addActionListener( this ); button75.buttonID = "75" ;
-        button76 = new GameButton() ; button76.setBounds(350, 300, 50, 50); button76.setBackground(Color.WHITE); button76.addActionListener( this ); button76.buttonID = "76" ;
-        button77 = new GameButton() ; button77.setBounds(350, 350, 50, 50); button77.setBackground(Color.WHITE); button77.addActionListener( this ); button77.buttonID = "77" ;
-        button78 = new GameButton() ; button78.setBounds(350, 400, 50, 50); button78.setBackground(Color.WHITE); button78.addActionListener( this ); button78.buttonID = "78" ;
-        button79 = new GameButton() ; button79.setBounds(350, 450, 50, 50); button79.setBackground(Color.WHITE); button79.addActionListener( this ); button79.buttonID = "79" ;
+        button71 = new GameButton() ; button71.setBounds(350, 50, 50, 50) ; button71.setBackground(new Color( 0xffffff )); button71.addActionListener( this ); button71.buttonID = "71" ;
+        button72 = new GameButton() ; button72.setBounds(350, 100, 50, 50); button72.setBackground(new Color( 0xffffff )); button72.addActionListener( this ); button72.buttonID = "72" ;
+        button73 = new GameButton() ; button73.setBounds(350, 150, 50, 50); button73.setBackground(new Color( 0xffffff )); button73.addActionListener( this ); button73.buttonID = "73" ;
+        button74 = new GameButton() ; button74.setBounds(350, 200, 50, 50); button74.setBackground(new Color( 0xeeeeee )); button74.addActionListener( this ); button74.buttonID = "74" ;
+        button75 = new GameButton() ; button75.setBounds(350, 250, 50, 50); button75.setBackground(new Color( 0xeeeeee )); button75.addActionListener( this ); button75.buttonID = "75" ;
+        button76 = new GameButton() ; button76.setBounds(350, 300, 50, 50); button76.setBackground(new Color( 0xeeeeee )); button76.addActionListener( this ); button76.buttonID = "76" ;
+        button77 = new GameButton() ; button77.setBounds(350, 350, 50, 50); button77.setBackground(new Color( 0xffffff )); button77.addActionListener( this ); button77.buttonID = "77" ;
+        button78 = new GameButton() ; button78.setBounds(350, 400, 50, 50); button78.setBackground(new Color( 0xffffff )); button78.addActionListener( this ); button78.buttonID = "78" ;
+        button79 = new GameButton() ; button79.setBounds(350, 450, 50, 50); button79.setBackground(new Color( 0xffffff )); button79.addActionListener( this ); button79.buttonID = "79" ;
      
-        button81 = new GameButton() ; button81.setBounds(400, 50, 50, 50); button81.setBackground(Color.WHITE); button81.addActionListener( this ); button81.buttonID = "81" ;
-        button82 = new GameButton() ; button82.setBounds(400, 100, 50, 50); button82.setBackground(Color.WHITE); button82.addActionListener( this ); button82.buttonID = "82" ;
-        button83 = new GameButton() ; button83.setBounds(400, 150, 50, 50); button83.setBackground(Color.WHITE); button83.addActionListener( this ); button83.buttonID = "83" ;
-        button84 = new GameButton() ; button84.setBounds(400, 200, 50, 50); button84.setBackground(Color.WHITE); button84.addActionListener( this ); button84.buttonID = "84" ;
-        button85 = new GameButton() ; button85.setBounds(400, 250, 50, 50); button85.setBackground(Color.WHITE); button85.addActionListener( this ); button85.buttonID = "85" ;
-        button86 = new GameButton() ; button86.setBounds(400, 300, 50, 50); button86.setBackground(Color.WHITE); button86.addActionListener( this ); button86.buttonID = "86" ;
-        button87 = new GameButton() ; button87.setBounds(400, 350, 50, 50); button87.setBackground(Color.WHITE); button87.addActionListener( this ); button87.buttonID = "87" ;
-        button88 = new GameButton() ; button88.setBounds(400, 400, 50, 50); button88.setBackground(Color.WHITE); button88.addActionListener( this ); button88.buttonID = "88" ;
-        button89 = new GameButton() ; button89.setBounds(400, 450, 50, 50); button89.setBackground(Color.WHITE); button89.addActionListener( this ); button89.buttonID = "89" ;
+        button81 = new GameButton() ; button81.setBounds(400, 50, 50, 50) ; button81.setBackground(new Color( 0xffffff )); button81.addActionListener( this ); button81.buttonID = "81" ;
+        button82 = new GameButton() ; button82.setBounds(400, 100, 50, 50); button82.setBackground(new Color( 0xffffff )); button82.addActionListener( this ); button82.buttonID = "82" ;
+        button83 = new GameButton() ; button83.setBounds(400, 150, 50, 50); button83.setBackground(new Color( 0xffffff )); button83.addActionListener( this ); button83.buttonID = "83" ;
+        button84 = new GameButton() ; button84.setBounds(400, 200, 50, 50); button84.setBackground(new Color( 0xeeeeee )); button84.addActionListener( this ); button84.buttonID = "84" ;
+        button85 = new GameButton() ; button85.setBounds(400, 250, 50, 50); button85.setBackground(new Color( 0xeeeeee )); button85.addActionListener( this ); button85.buttonID = "85" ;
+        button86 = new GameButton() ; button86.setBounds(400, 300, 50, 50); button86.setBackground(new Color( 0xeeeeee )); button86.addActionListener( this ); button86.buttonID = "86" ;
+        button87 = new GameButton() ; button87.setBounds(400, 350, 50, 50); button87.setBackground(new Color( 0xffffff )); button87.addActionListener( this ); button87.buttonID = "87" ;
+        button88 = new GameButton() ; button88.setBounds(400, 400, 50, 50); button88.setBackground(new Color( 0xffffff )); button88.addActionListener( this ); button88.buttonID = "88" ;
+        button89 = new GameButton() ; button89.setBounds(400, 450, 50, 50); button89.setBackground(new Color( 0xffffff )); button89.addActionListener( this ); button89.buttonID = "89" ;
      
-        button91 = new GameButton() ; button91.setBounds(450, 50, 50, 50); button91.setBackground(Color.WHITE); button91.addActionListener( this ); button91.buttonID = "91" ;
-        button92 = new GameButton() ; button92.setBounds(450, 100, 50, 50); button92.setBackground(Color.WHITE); button92.addActionListener( this ); button92.buttonID = "92" ;
-        button93 = new GameButton() ; button93.setBounds(450, 150, 50, 50); button93.setBackground(Color.WHITE); button93.addActionListener( this ); button93.buttonID = "93" ;
-        button94 = new GameButton() ; button94.setBounds(450, 200, 50, 50); button94.setBackground(Color.WHITE); button94.addActionListener( this ); button94.buttonID = "94" ;
-        button95 = new GameButton() ; button95.setBounds(450, 250, 50, 50); button95.setBackground(Color.WHITE); button95.addActionListener( this ); button95.buttonID = "95" ;
-        button96 = new GameButton() ; button96.setBounds(450, 300, 50, 50); button96.setBackground(Color.WHITE); button96.addActionListener( this ); button96.buttonID = "96" ;
-        button97 = new GameButton() ; button97.setBounds(450, 350, 50, 50); button97.setBackground(Color.WHITE); button97.addActionListener( this ); button97.buttonID = "97" ;
-        button98 = new GameButton() ; button98.setBounds(450, 400, 50, 50); button98.setBackground(Color.WHITE); button98.addActionListener( this ); button98.buttonID = "98" ;
-        button99 = new GameButton() ; button99.setBounds(450, 450, 50, 50); button99.setBackground(Color.WHITE); button99.addActionListener( this ); button99.buttonID = "99" ;
+        button91 = new GameButton() ; button91.setBounds(450, 50, 50, 50); button91.setBackground(new Color( 0xffffff )); button91.addActionListener( this ); button91.buttonID = "91" ;
+        button92 = new GameButton() ; button92.setBounds(450, 100, 50, 50); button92.setBackground(new Color( 0xffffff )); button92.addActionListener( this ); button92.buttonID = "92" ;
+        button93 = new GameButton() ; button93.setBounds(450, 150, 50, 50); button93.setBackground(new Color( 0xffffff )); button93.addActionListener( this ); button93.buttonID = "93" ;
+        button94 = new GameButton() ; button94.setBounds(450, 200, 50, 50); button94.setBackground(new Color( 0xeeeeee )); button94.addActionListener( this ); button94.buttonID = "94" ;
+        button95 = new GameButton() ; button95.setBounds(450, 250, 50, 50); button95.setBackground(new Color( 0xeeeeee )); button95.addActionListener( this ); button95.buttonID = "95" ;
+        button96 = new GameButton() ; button96.setBounds(450, 300, 50, 50); button96.setBackground(new Color( 0xeeeeee )); button96.addActionListener( this ); button96.buttonID = "96" ;
+        button97 = new GameButton() ; button97.setBounds(450, 350, 50, 50); button97.setBackground(new Color( 0xffffff )); button97.addActionListener( this ); button97.buttonID = "97" ;
+        button98 = new GameButton() ; button98.setBounds(450, 400, 50, 50); button98.setBackground(new Color( 0xffffff )); button98.addActionListener( this ); button98.buttonID = "98" ;
+        button99 = new GameButton() ; button99.setBounds(450, 450, 50, 50); button99.setBackground(new Color( 0xffffff )); button99.addActionListener( this ); button99.buttonID = "99" ;
      
         buttons = new GameButton[] {
             button11 ,button12 ,button13 ,button14 ,button15 ,button16 ,button17 ,button18 ,button19 ,
@@ -267,6 +270,7 @@ class UI extends JFrame implements ActionListener {
         // endregion
     }
 
+    // IF ANY GUI INTERATION = THIS FUNCTION FIRES
     public void actionPerformed( ActionEvent event ) {
 
         if( event.getSource() == comboBox ) {   
@@ -289,6 +293,15 @@ class UI extends JFrame implements ActionListener {
             try {
 
                 number =  Integer.parseInt( input.strip() ) ;
+
+                if( number == 0 ) { SetButtonValue(currentSelectedButton.buttonID , number ); }
+                
+                // LIMITING INPUT NUMBERS ONLY BETWEEN 1 AND 9
+                if( number > 10 && number < 1 ) {
+
+                    SetCurrentLog( "Only number from 1 to 9 is allowed in sudoku" );
+                    return ;
+                }
 
                 SetButtonValue(currentSelectedButton.buttonID , number );
 
@@ -313,8 +326,8 @@ class UI extends JFrame implements ActionListener {
                 }
             }
             DisplayBoard();
-
             Sync();
+            SetCurrentLog( "Reset" );
 
             return ;
         }
@@ -334,6 +347,8 @@ class UI extends JFrame implements ActionListener {
             };
             //DisplayBoard();
             Sync();
+
+            SetCurrentLog("Generate testing board");
             
             return ;
         }
@@ -343,12 +358,13 @@ class UI extends JFrame implements ActionListener {
         if ( event_source.buttonID == "SLV" ) {
             
             DisplayBoard();
+            SetCurrentLog( "Solve board" );
 
             int N = sudo_array.length;
  
             if (SolveSudoku(sudo_array, N))
             {
-                
+
                 Sync() ;
                 // print solution
                 DisplayBoard();
@@ -395,6 +411,9 @@ class UI extends JFrame implements ActionListener {
         
     }
 
+    // UPDATE GUI FONT COLORS TO THEME RELATED COLORS ACCORDING TO THE THEME SELECTED
+    // fgColor, FOREGROUND COLOR IS FOR THE BUTTONS 
+    // bgColor, BACKGROUND COLOR IS FOR THE TEXT THAT IS ON THE JLabels OUTSIDE THE BUTTONS
     void UpdateGUI( Color fgColor , Color bgColor) {
 
         for (GameButton gameButton : buttons) {
@@ -409,6 +428,7 @@ class UI extends JFrame implements ActionListener {
         buttonEX.setForeground( fgColor ) ;
 
         gameLog.setForeground( fgColor );
+        comboBox.setForeground( fgColor );
         textField.setForeground( fgColor );
 
         c00.setForeground(bgColor);
@@ -426,40 +446,40 @@ class UI extends JFrame implements ActionListener {
         // SWITCH CASE FOR THEME CHANGING
         // WHERE "0xRRGGBB" IS RGB HEX CODE FOR COLORS
         switch (theme) {
-            case "Charcoal" :
+            case "Charcoal" : // DARK THEME
                 
                 this.getContentPane().setBackground( new Color( 0x424242 ) );
                 UpdateGUI(  new Color( 0x424242 ) , new Color( 0xffffff ) ) ;
                 break;
             
-            case "Nuke" :
+            case "Nuke" :   // LIGHT THEME
                 
                 this.getContentPane().setBackground( new Color( 0xffffff ) );
                 UpdateGUI(  new Color( 0x111111 ), new Color( 0x111111 )  );
                 break;
             
-            case "Ocean" :
+            case "Ocean" :  // BLUE THEME
                 
                 this.getContentPane().setBackground( new Color( 0x21cbff ) );
                 UpdateGUI(  new Color( 0x21cbff ) , new Color( 0xffffff ) );
                 break;
 
-            case "Cutie" :
+            case "Cutie" :  // PINK THEME
     
                 this.getContentPane().setBackground( new Color( 0xff6bbf ) );
                 UpdateGUI(  new Color( 0xff6bbf ) , new Color( 0xffffff ) );
                 break;
 
-            case "Vector" :
+            case "Vector" : // ORANGE THEME
                 
                 this.getContentPane().setBackground( new Color( 0xff7452 ) );
                 UpdateGUI(  new Color( 0xff7452 ) , new Color( 0xffffff ) );
                 break;
 
-            case "Lemon" :
+            case "Lemon" :  // YELLOW THEME
                 
                 this.getContentPane().setBackground( new Color( 0xd7ff52 ) );
-                UpdateGUI(  new Color( 0xd7ff52 ) , new Color( 0xffffff ) );
+                UpdateGUI(  new Color( 0x111111 ) , new Color( 0x111111 ) );
                 break;
 
             default:
@@ -543,7 +563,7 @@ class UI extends JFrame implements ActionListener {
             String valStr ;
 
             if( value != 0 ) { valStr = Integer.toString( value ) ; } 
-            else { valStr = "  " ; }
+            else { valStr = null ; }
 
             GetGameButtonWithTag( tag ).setText( valStr );
             GetGameButtonWithTag( tag ).value = value ;
@@ -551,6 +571,8 @@ class UI extends JFrame implements ActionListener {
             double id = (double) Integer.parseInt( tag ) ;
             int x , y ;
 
+            // DERIVE X AND Y COORDINATES OF A VALUE IN THE ARRAY FROM THE BUTTON UID
+            
             x = (int) ( ( ( ( id / 10 ) - Math.floor ( id / 10 ) ) * 10 ) - 1 )  ;
             // 41             4.1           4         4.1       
 
@@ -566,54 +588,42 @@ class UI extends JFrame implements ActionListener {
         catch( Exception err ) {
 
             SetCurrentLog( "Error" );
-            
-            System.out.println( Arrays.toString( err.getStackTrace() ) ) ;
         }
     }
 
     // IS SAFE CHECKS IF A NUMBER IS IN A 3X3 BOX, ROW OR COLUMN AND RETURNS TRUE IF SAFE AND FALSE IF NOT SAFE
-    
-    // SolveSudoku RECURSIVELY CHECKS IF A NUMBER CAN BE PLACED IN A PLACE IF THE PLACE IS A
-    // SAFE PLACE OR NOT    
     public static boolean isSafe(int[][] board, int row, int col, int num ) {
         
         // Row has the unique (row-clash)
         for (int d = 0; d < board.length; d++)
         {
              
-            // Check if the number we are trying to
-            // place is already present in
-            // that row, return false;
+            // CHECK ROW FOR THE SAME NUMBER
             if (board[row][d] == num) {
                 return false;
             }
         }
  
-        // Column has the unique numbers (column-clash)
+        // CHECKING COLUMN FOR THE SAME NUMBER 
         for (int r = 0; r < board.length; r++)
         {
              
-            // Check if the number
-            // we are trying to
-            // place is already present in
-            // that column, return false;
             if (board[r][col] == num)
             {
                 return false;
             }
         }
- 
-        // Corresponding square has
-        // unique number (box-clash)
-        int sqrt = (int)Math.sqrt(board.length);
-        int boxRowStart = row - row % sqrt;
-        int boxColStart = col - col % sqrt;
+        
+        // CHECK 3x3 BOX FOR THE SAME NUMBER 
+        int sq_root = (int)Math.sqrt(board.length);
+        int boxRowStart = row - row % sq_root;
+        int boxColStart = col - col % sq_root;
  
         for (int r = boxRowStart;
-             r < boxRowStart + sqrt; r++)
+             r < boxRowStart + sq_root; r++)
         {
             for (int d = boxColStart;
-                 d < boxColStart + sqrt; d++)
+                 d < boxColStart + sq_root; d++)
             {
                 if (board[r][d] == num)
                 {
@@ -622,10 +632,14 @@ class UI extends JFrame implements ActionListener {
             }
         }
  
-        // if there is no clash, it's safe
+        
         return true;
     }
- 
+    
+    // SOLVESUDOKU SOLVES SUDOKU USING RECURSIVE BACKTRACKING ALGORITHM
+    // IT ESSENTIALLY PLACES A NUMBER AND CHECKS IF ITS SAFE AND THEN PLACES ANOTHER AND AGAIN AND AGAIN
+    // IF UNSAFE IT GOES TO NEXT INDEX
+    // IF THERES NO NEXT INDEX IT BACKTRACKS TO PREVIOUS LEVEL AND MOVES THAT TO NEXT INDEX AND SO ON
     public boolean SolveSudoku( int[][] board, int n )
     {
         int row = -1;
@@ -639,9 +653,7 @@ class UI extends JFrame implements ActionListener {
                 {
                     row = i;
                     col = j;
- 
-                    // We still have some remaining
-                    // missing values in Sudoku
+
                     isEmpty = false;
                     break;
                 }
@@ -651,13 +663,11 @@ class UI extends JFrame implements ActionListener {
             }
         }
  
-        // No empty space left
         if (isEmpty)
         {
             return true;
         }
- 
-        // Else for each-row backtrack
+
         for (int num = 1; num <= n; num++)
         {
             if (isSafe(board, row, col, num))
@@ -665,12 +675,12 @@ class UI extends JFrame implements ActionListener {
                 board[row][col] = num;
                 if (SolveSudoku(board, n))
                 {
-                    // print(board, n);
+                    
                     return true;
                 }
                 else
                 {
-                    // replace it
+                    
                     board[row][col] = 0;
                 }
             }
