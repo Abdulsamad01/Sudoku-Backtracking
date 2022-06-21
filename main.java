@@ -60,7 +60,16 @@ class UI extends JFrame implements ActionListener {
 
     JTextField gameLog, textField ;
 
+    GameButton buttonIN, buttonSL, buttonGN, buttonRS, buttonEX ;
+
     JComboBox comboBox ;
+
+    JLabel c00 ;
+    JLabel c01 ;
+    JLabel c10 ;
+    JLabel c11 ;
+    JLabel theme ;
+    JLabel out_label ;
 
     String themes[] = { "Cutie", "Charcoal", "Nuke", "Ocean", "Vector", "Lemon" } ;
 
@@ -107,16 +116,16 @@ class UI extends JFrame implements ActionListener {
         ImageIcon ico = new ImageIcon( "./Assets/icons8-pastime-64.png" ) ;
         this.setIconImage( ico.getImage() );
         
-        JLabel c00 = new JLabel("(0,0)");
+        c00 = new JLabel("(0,0)");
         c00.setBounds(20,20, 30, 30);
-        JLabel c01 = new JLabel("(8,0)");
+        c01 = new JLabel("(8,0)");
         c01.setBounds(500,20, 30, 30);
-        JLabel c10 = new JLabel("(0,8)");
+        c10 = new JLabel("(0,8)");
         c10.setBounds(20,500, 30, 30);
-        JLabel c11 = new JLabel("(8,8)");
+        c11 = new JLabel("(8,8)");
         c11.setBounds(500,500, 30, 30);
 
-        JLabel theme = new JLabel("Theme :");
+        theme = new JLabel("Theme :");
         theme.setBounds(10,0, 50, 30);
 
         comboBox = new JComboBox<>( themes ) ;
@@ -243,15 +252,15 @@ class UI extends JFrame implements ActionListener {
         SetCurrentLog( " " );
         currentSelectedButton = null ;
 
-        JLabel out_label = new JLabel("Game Log");
+        out_label = new JLabel("Game Log");
         out_label.setBounds(220,690, 280,40);
 
-        GameButton buttonIN = new GameButton() ; buttonIN.setBounds(110, 550, 80, 30); buttonIN.setBackground(Color.WHITE); buttonIN.addActionListener( this ); buttonIN.buttonID = "IN" ;
-        GameButton buttonSL = new GameButton() ; buttonSL.setBounds(110, 600, 80, 30); buttonSL.setBackground(Color.WHITE); buttonSL.addActionListener( this ); buttonSL.buttonID = "SLV" ;
-        GameButton buttonGN = new GameButton() ; buttonGN.setBounds(240, 600, 160, 30); buttonGN.setBackground(Color.WHITE); buttonGN.addActionListener( this ); buttonGN.buttonID = "GEN" ;
+        buttonIN = new GameButton() ; buttonIN.setBounds(110, 550, 80, 30); buttonIN.setBackground(Color.WHITE); buttonIN.addActionListener( this ); buttonIN.buttonID = "IN" ;
+        buttonSL = new GameButton() ; buttonSL.setBounds(110, 600, 80, 30); buttonSL.setBackground(Color.WHITE); buttonSL.addActionListener( this ); buttonSL.buttonID = "SLV" ;
+        buttonGN = new GameButton() ; buttonGN.setBounds(240, 600, 160, 30); buttonGN.setBackground(Color.WHITE); buttonGN.addActionListener( this ); buttonGN.buttonID = "GEN" ;
         
-        GameButton buttonRS = new GameButton() ; buttonRS.setBounds(110, 650, 80, 30); buttonRS.setBackground(Color.WHITE); buttonRS.addActionListener( this ); buttonRS.buttonID = "RES" ;
-        GameButton buttonEX = new GameButton() ; buttonEX.setBounds(240, 650, 160, 30); buttonEX.setBackground(Color.WHITE); buttonEX.addActionListener( this ); buttonEX.buttonID = "EXIT" ;
+        buttonRS = new GameButton() ; buttonRS.setBounds(110, 650, 80, 30); buttonRS.setBackground(Color.WHITE); buttonRS.addActionListener( this ); buttonRS.buttonID = "RES" ;
+        buttonEX = new GameButton() ; buttonEX.setBounds(240, 650, 160, 30); buttonEX.setBackground(Color.WHITE); buttonEX.addActionListener( this ); buttonEX.buttonID = "EXIT" ;
 
         this.setTitle("Sudoku Sudoku Sudoku Sudoku !");
         this.setSize(570,850);
@@ -321,11 +330,26 @@ class UI extends JFrame implements ActionListener {
             catch( Exception err ) {
 
                 SetCurrentLog( "Parsing error" );
-                System.out.println( err.getMessage() );
+                System.out.println( Arrays.toString( err.getStackTrace() ) ) ;
+                
             }
         }
 
-        if( event_source.buttonID == "RES" ) { Reset(); }
+        if( event_source.buttonID == "RES" ) { 
+            
+            for (int i = 0; i < sudo_array.length; i++) {
+            
+                for (int j = 0; j < sudo_array.length; j++) {
+                    
+                    sudo_array[i][j] = 0 ;
+                }
+            }
+            DisplayBoard();
+
+            Sync();
+
+            return ;
+        }
 
         if ( event_source.buttonID == "GEN" ) {
 
@@ -340,14 +364,14 @@ class UI extends JFrame implements ActionListener {
                 { 0, 0, 0, 0, 0, 0, 0, 7, 4 },
                 { 0, 0, 5, 2, 0, 6, 3, 0, 0 }
             };
-
-            DisplayBoard();
-
+            //DisplayBoard();
             Sync();
             
             return ;
         }
 
+        if( event_source.buttonID == "EXIT" ) { System.exit( 0 ); }
+        
         if ( event_source.buttonID == "SLV" ) {
             
             DisplayBoard();
@@ -356,13 +380,17 @@ class UI extends JFrame implements ActionListener {
  
             if (SolveSudoku(sudo_array, N))
             {
+                
+                Sync() ;
                 // print solution
                 DisplayBoard();
+                return ;
             }
             else {
                 
                 System.out.println("No solution");
                 SetCurrentLog("No Solution, Recheck board ?");
+                return ;
             }
         }
 
@@ -394,9 +422,33 @@ class UI extends JFrame implements ActionListener {
         catch( Exception err ) { 
             
             SetCurrentLog( "Error" ); 
-            System.out.println( err.getMessage() );
+            System.out.println( Arrays.toString( err.getStackTrace() ) ) ;
         } 
         
+    }
+
+    void UpdateGUI( Color fgColor , Color bgColor) {
+
+        for (GameButton gameButton : buttons) {
+            
+            gameButton.setForeground( fgColor );
+        }
+       
+        buttonIN.setForeground( fgColor ) ;
+        buttonSL.setForeground( fgColor ) ;
+        buttonGN.setForeground( fgColor ) ;
+        buttonRS.setForeground( fgColor ) ;
+        buttonEX.setForeground( fgColor ) ;
+
+        gameLog.setForeground( fgColor );
+        textField.setForeground( fgColor );
+
+        c00.setForeground(bgColor);
+        c01.setForeground(bgColor);
+        c10.setForeground(bgColor);
+        c11.setForeground(bgColor);
+        theme.setForeground(bgColor);
+        out_label.setForeground(bgColor);
     }
 
     // SET THEME METHOD SETS THEME TO A SPECIFIC THEME FROM A CONSTANT ARRAY "themes" 
@@ -409,49 +461,42 @@ class UI extends JFrame implements ActionListener {
             case "Charcoal" :
                 
                 this.getContentPane().setBackground( new Color( 0x424242 ) );
+                UpdateGUI(  new Color( 0x424242 ) , new Color( 0xffffff ) ) ;
                 break;
             
             case "Nuke" :
                 
                 this.getContentPane().setBackground( new Color( 0xffffff ) );
+                UpdateGUI(  new Color( 0x111111 ), new Color( 0x111111 )  );
                 break;
             
             case "Ocean" :
                 
                 this.getContentPane().setBackground( new Color( 0x21cbff ) );
+                UpdateGUI(  new Color( 0x21cbff ) , new Color( 0xffffff ) );
                 break;
 
             case "Cutie" :
     
                 this.getContentPane().setBackground( new Color( 0xff6bbf ) );
+                UpdateGUI(  new Color( 0xff6bbf ) , new Color( 0xffffff ) );
                 break;
 
             case "Vector" :
                 
                 this.getContentPane().setBackground( new Color( 0xff7452 ) );
+                UpdateGUI(  new Color( 0xff7452 ) , new Color( 0xffffff ) );
                 break;
 
             case "Lemon" :
                 
                 this.getContentPane().setBackground( new Color( 0xd7ff52 ) );
+                UpdateGUI(  new Color( 0xd7ff52 ) , new Color( 0xffffff ) );
                 break;
 
             default:
                 break;
         }
-    }
-
-    void Reset() {
-
-        for (int i = 0; i < sudo_array.length; i++) {
-            
-            for (int j = 0; j < sudo_array.length; j++) {
-                
-                sudo_array[i][j] = 0 ;
-            }
-        }
-
-        Sync() ;
     }
 
     // SYNC FUNCTION SYNCS BUTTONS WITH ARRAY
@@ -468,7 +513,11 @@ class UI extends JFrame implements ActionListener {
             // System.out.print( x ); System.out.print("   ");System.out.print( y );
             int val = sudo_array[ x - 1 ][ y - 1 ]  ;
 
-            if( val == 0 ) { continue ; }
+            if( val == 0 ) { 
+                
+                GetGameButtonWithTag( Integer.toString( (int) i ) ).setText( null ) ;
+                continue ; 
+            }
 
             GetGameButtonWithTag( Integer.toString( (int) i ) ).setText( Integer.toString( val ) ) ;
         }
@@ -548,29 +597,14 @@ class UI extends JFrame implements ActionListener {
 
         catch( Exception err ) {
 
-            SetCurrentLog( "Error" ); 
-            System.out.println( err.getMessage() );
+            SetCurrentLog( "Error" );
+            
+            System.out.println( Arrays.toString( err.getStackTrace() ) ) ;
         }
     }
 
     // IS SAFE CHECKS IF A NUMBER IS IN A 3X3 BOX, ROW OR COLUMN AND RETURNS TRUE IF SAFE AND FALSE IF NOT SAFE
     
-
-    void Update() {
-
-        for (int i = 0; i < 9; i++) {
-            
-            for (int j = 0; j < 9; j++) {
-                
-                int buttonID = j * 10 + i ;
-
-                int val =  GetGameButtonWithTag( Integer.toString( buttonID ) ).value ;
-                
-                sudo_array[i][j] = val ;
-            }
-        }
-    }
-
     // SolveSudoku RECURSIVELY CHECKS IF A NUMBER CAN BE PLACED IN A PLACE IF THE PLACE IS A
     // SAFE PLACE OR NOT    
     public static boolean isSafe(int[][] board, int row, int col, int num ) {
@@ -672,24 +706,7 @@ class UI extends JFrame implements ActionListener {
                     board[row][col] = 0;
                 }
             }
-            Sync() ;
         }
         return false;
-    }
-    
-    // DO I WANT THESE ACTUALLY HMMMMM ?
-    void Sudoku2Arr( ) {
-
-
-    }
-
-    void GenerateSudoku() {
-
-
-    }
-
-    void SetButtonNumber() {
-
-
     }
 }
