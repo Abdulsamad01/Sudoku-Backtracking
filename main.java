@@ -5,7 +5,7 @@
  * DEPT - CSE - AIE 
  */
 
-
+import javax.print.attribute.standard.Sides;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -105,17 +105,6 @@ class UI extends JFrame implements ActionListener {
 
         ImageIcon ico = new ImageIcon( "./Assets/icons8-pastime-64.png" ) ;
         this.setIconImage( ico.getImage() );
-
-        /*
-        for( int[] row : sudo_array )
-        {
-            for( int i = 0 ; i < row.length ; i ++ ) {
-
-                row[i] = 0 ;
-            }
-        }
-        */
-
         
         JLabel c00 = new JLabel("(0,0)");
         c00.setBounds(20,20, 30, 30);
@@ -334,7 +323,32 @@ class UI extends JFrame implements ActionListener {
             }
         }
 
+        if ( event_source.buttonID == "RES" ) {
+        
+            DisplayBoard();
+
+            sudo_array = new int[][] {
+                { 3, 0, 6, 5, 0, 8, 4, 0, 0 },
+                { 5, 2, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 8, 7, 0, 0, 0, 0, 3, 1 },
+                { 0, 0, 3, 0, 1, 0, 0, 8, 0 },
+                { 9, 0, 0, 8, 6, 3, 0, 0, 5 },
+                { 0, 5, 0, 0, 9, 0, 6, 0, 0 },
+                { 1, 3, 0, 0, 0, 0, 2, 5, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 7, 4 },
+                { 0, 0, 5, 2, 0, 6, 3, 0, 0 }
+            };
+
+            DisplayBoard();
+
+            Sync();
+            
+            return ;
+        }
+
         if ( event_source.buttonID == "SLV" ) {
+            
+            DisplayBoard();
 
             int N = sudo_array.length;
  
@@ -375,7 +389,7 @@ class UI extends JFrame implements ActionListener {
             }
         }
 
-        catch( Exception err ) { SetCurrentLog( "Sync Error" ); } 
+        catch( Exception err ) { SetCurrentLog( "Error" ); } 
     }
 
     // SET THEME METHOD SETS THEME TO A SPECIFIC THEME FROM A CONSTANT ARRAY "themes" 
@@ -420,6 +434,25 @@ class UI extends JFrame implements ActionListener {
         }
     }
 
+    // SYNC FUNCTION SYNCS BUTTONS WITH ARRAY
+    void Sync() {
+
+        for (int i = 11; i <= 99; i++) {
+            
+            int y = Integer.parseInt( Character.toString(Integer.toString(i).toCharArray() [0]) ) ;
+            int x = Integer.parseInt( Character.toString(Integer.toString(i).toCharArray() [1]) ) ;
+
+
+            if( i % 10 == 0 ) { continue ; }
+            // System.out.print( x ); System.out.print("   ");System.out.print( y );
+            int val = sudo_array[ x - 1 ][ y - 1 ]  ;
+
+            if( val == 0 ) { continue ; }
+
+            GetGameButtonWithTag( Integer.toString( (int) i ) ).setText( Integer.toString( val ) ) ;
+        }
+    }
+
     // GET CURRENT LOG GETS THE CURRENT GAME LOG THAT IS BEING DISPLAYED IN THE LOG FIELD
     String GetCurrentLog( ) { 
 
@@ -435,18 +468,16 @@ class UI extends JFrame implements ActionListener {
 
     // GET BUTTON WITH TAG RETURNS THE BUTTON WITH ITS UNIQUE ID
     GameButton GetGameButtonWithTag ( String tag  ) {
+           
+        int id = Integer.parseInt(tag) ;
         
-        GameButton temp ;
-
         for (GameButton gameButton : buttons) {
             
-            if( gameButton.buttonID == tag ) {
+            if (  Integer.parseInt(gameButton.buttonID) == id ) {
 
-                temp = gameButton ; 
-                return temp ;
+                return gameButton ;
             }
         }
-
         return null ;
     }
 
@@ -555,9 +586,7 @@ class UI extends JFrame implements ActionListener {
     // SolveSudoku RECURSIVELY CHECKS IF A NUMBER CAN BE PLACED IN A PLACE IF THE PLACE IS A
     // SAFE PLACE OR NOT    
     boolean SolveSudoku( int[][] sudo_board, int n ) {
-
-        Update();
-     
+        
         int row = -1;
         int col = -1;
         boolean isEmpty = true;
