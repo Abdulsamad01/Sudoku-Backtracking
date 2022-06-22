@@ -496,9 +496,11 @@ class UI extends JFrame implements ActionListener {
             int y = Integer.parseInt( Character.toString(Integer.toString(i).toCharArray() [0]) ) ;
             int x = Integer.parseInt( Character.toString(Integer.toString(i).toCharArray() [1]) ) ;
 
+            System.out.print( x - 1 );System.out.print( "  " );System.out.print( y - 1  );
 
             if( i % 10 == 0 ) { continue ; }
             // System.out.print( x ); System.out.print("   ");System.out.print( y );
+            
             int val = sudo_array[ x - 1 ][ y - 1 ]  ;
 
             if( val == 0 ) { 
@@ -568,17 +570,14 @@ class UI extends JFrame implements ActionListener {
             GetGameButtonWithTag( tag ).setText( valStr );
             GetGameButtonWithTag( tag ).value = value ;
 
-            double id = (double) Integer.parseInt( tag ) ;
             int x , y ;
 
             // DERIVE X AND Y COORDINATES OF A VALUE IN THE ARRAY FROM THE BUTTON UID
             
-            x = (int) ( ( ( ( id / 10 ) - Math.floor ( id / 10 ) ) * 10 ) - 1 )  ;
-            // 41             4.1           4         4.1       
+            y = Integer.parseInt( Character.toString( tag.toCharArray() [0]) ) ;
+            x = Integer.parseInt( Character.toString( tag.toCharArray() [1]) ) ;
 
-            y = (int)( (Math.floor( id / 10 )) ) - 1 ;
-
-            sudo_array[x][y] = value ;
+            sudo_array[x - 1][y - 1] = value ;
 
             SetCurrentLog( "Edited button " + tag + " " + valStr );
 
