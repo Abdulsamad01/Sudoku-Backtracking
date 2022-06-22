@@ -297,9 +297,9 @@ class UI extends JFrame implements ActionListener {
                 if( number == 0 ) { SetButtonValue(currentSelectedButton.buttonID , number ); }
                 
                 // LIMITING INPUT NUMBERS ONLY BETWEEN 1 AND 9
-                if( number > 10 && number < 1 ) {
+                if( number > 9 || number < 1 ) {
 
-                    SetCurrentLog( "Only number from 1 to 9 is allowed in sudoku" );
+                    SetCurrentLog( "Only numbers from 1 to 9 is allowed in sudoku" );
                     return ;
                 }
 
